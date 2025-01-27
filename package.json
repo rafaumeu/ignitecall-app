@@ -15,6 +15,7 @@
     "@biomejs/biome": "^1.9.4",
     "@hookform/resolvers": "^3.10.0",
     "@ignite-ui/react": "^2.2.4",
+    "@prisma/client": "^6.2.1",
     "next": "15.1.6",
     "phosphor-react": "^1.4.1",
     "react": "^19.0.0",
@@ -26,6 +27,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "prisma": "^6.2.1",
     "typescript": "^5"
   }
 }
