@@ -39,6 +39,7 @@ A modern scheduling system built with Next.js and TypeScript.
 
 ---
 </div >
+
 ## 🚀 Features
 
 - **Modern Authentication**:
