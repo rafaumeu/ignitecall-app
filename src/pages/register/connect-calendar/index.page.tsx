@@ -1,11 +1,12 @@
 import { Container, Header } from '../style'
 import { Button, Text, Heading, MultiStep } from '@ignite-ui/react'
 
-import { ArrowRight } from 'phosphor-react'
+import { ArrowRight, Check } from 'phosphor-react'
 
 import { z } from 'zod'
-import { ConnectBox, ConnectItem } from './style'
+import { AuthError, ConnectBox, ConnectItem } from './style'
 import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 const registerFormSchema = z.object({
   username: z
@@ -20,9 +21,15 @@ const registerFormSchema = z.object({
     .min(3, { message: 'O nome deve ter no mínimo 3 caracteres' }),
 })
 type RegisterFormData = z.infer<typeof registerFormSchema>
+
 export default function Register() {
   const session = useSession()
-  async function handleRegister(data: RegisterFormData) {}
+  const router = useRouter()
+  const hasAuthError = !!router.query?.error
+  const isSignedIn = session.status === 'authenticated'
+  async function handelConnectCalendar() {
+    await signIn('google')
+  }
   return (
     <Container>
       <Header>
@@ -36,16 +43,29 @@ export default function Register() {
       <ConnectBox>
         <ConnectItem>
           <Text>Google Calendar</Text>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => signIn('google')}
-          >
-            Conectar
-            <ArrowRight />
-          </Button>
+          {isSignedIn ? (
+            <Button size="sm" disabled>
+              Conectado
+              <Check />
+            </Button>
+          ) : (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={handelConnectCalendar}
+            >
+              Conectar
+              <ArrowRight />
+            </Button>
+          )}
         </ConnectItem>
-        <Button type="submit">
+        {hasAuthError && (
+          <AuthError size="sm">
+            Falha ao se conectar ao Google, verifique se voce habilitou as
+            permissões de acesso ao Google Calendar.
+          </AuthError>
+        )}
+        <Button type="submit" disabled={!isSignedIn}>
           Próximo passo
           <ArrowRight />
         </Button>
