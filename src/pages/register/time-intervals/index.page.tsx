@@ -17,8 +17,35 @@ import {
   IntervalsInput,
 } from './style'
 import { ArrowRight } from 'phosphor-react'
+import { useFieldArray, useForm } from 'react-hook-form'
+import { getWeekDays } from '@/utils/get-week-days'
 
+const timeIntervalsFormSchema = z.object({})
 export default function TimeIntervals() {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      intervals: [
+        { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 1, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 2, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 3, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 4, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 5, enabled: true, startTime: '08:00', endTime: '18:00' },
+        { weekDay: 6, enabled: false, startTime: '08:00', endTime: '18:00' },
+      ],
+    },
+  })
+  const { fields } = useFieldArray({
+    name: 'intervals',
+    control,
+  })
+  const weekDays = getWeekDays()
+  async function handleSetTimeIntervals() {}
   return (
     <Container>
       <Header>
@@ -29,78 +56,32 @@ export default function TimeIntervals() {
         </Text>
         <MultiStep size={4} currentStep={3} />
       </Header>
-      <IntervalBox as="form">
+      <IntervalBox as="form" onSubmit={handleSubmit(handleSetTimeIntervals)}>
         <IntervalsContainer>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Segunda-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Terça-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Quarta-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Quinta-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Sexta-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Sábado-feira</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
-          <IntervalItem>
-            <IntervalDay>
-              <Checkbox />
-              <Text>Domingo</Text>
-            </IntervalDay>
-            <IntervalsInput>
-              <TextInput size="sm" type="time" step={60} />
-              <TextInput size="sm" type="time" step={60} />
-            </IntervalsInput>
-          </IntervalItem>
+          {fields.map((field, index) => {
+            return (
+              <IntervalItem key={field.id}>
+                <IntervalDay>
+                  <Checkbox />
+                  <Text>{weekDays[field.weekDay]}</Text>
+                </IntervalDay>
+                <IntervalsInput>
+                  <TextInput
+                    size="sm"
+                    type="time"
+                    step={60}
+                    {...register(`intervals.${index}.startTime`)}
+                  />
+                  <TextInput
+                    size="sm"
+                    type="time"
+                    step={60}
+                    {...register(`intervals.${index}.endTime`)}
+                  />
+                </IntervalsInput>
+              </IntervalItem>
+            )
+          })}
         </IntervalsContainer>
         <Button type="submit">
           Próximo passo
