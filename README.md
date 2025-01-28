@@ -2,7 +2,7 @@
 
 # ⏰ Ignite Call
 
-A modern scheduling system built with Next.js and TypeScript.
+A modern scheduling system built with Next.js and TypeScript, featuring Google Calendar integration and automated scheduling capabilities.
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-Latest-black.svg)](https://nextjs.org/)
@@ -50,25 +50,39 @@ A modern scheduling system built with Next.js and TypeScript.
   - Session management and user data persistence
   - Google Calendar scope authorization
   - Username uniqueness validation
+
 - **User Registration Flow**:
   - Multi-step registration process
-  - Username claim system
+  - Username claim system with validation
   - Calendar connection interface
   - Profile information collection
+  - Time intervals management for availability
+
+- **Time Management**:
+  - Define working hours for each day of the week
+  - Minimum 1-hour interval validation
+  - Time conversion and validation system
+  - Flexible scheduling options
+
 - **Google Integration**:
   - OAuth2 authentication
   - Calendar API connection
   - Automatic scope verification
+  - Error handling for missing permissions
+
 - **API Architecture**:
   - Next.js API routes
   - Prisma ORM integration
   - Axios HTTP client
   - Type-safe endpoints
+  - Cookie-based authentication
+
 - **UI/UX**:
   - Responsive design
   - Loading states
   - Error handling
   - Progress indicators
+  - Form validation with Zod
 
 ---
 
@@ -77,6 +91,7 @@ A modern scheduling system built with Next.js and TypeScript.
 - Node.js 18+ (LTS version)
 - Yarn package manager
 - Google Cloud Platform account (for Calendar API)
+- SQLite (for development)
 
 ---
 
@@ -122,28 +137,27 @@ ignite-call/
 ├── src/
 │   ├── @types/
 │   │   └── next-auth.d.ts       # NextAuth type definitions
-│   ├── assets/
-│   │   └── app-preview.png      # Application preview image
+│   ├── pages/
+│   │   ├── api/
+│   │   │   ├── auth/           # Authentication endpoints
+│   │   │   └── users/          # User management endpoints
+│   │   ├── register/          # Registration flow pages
+│   │   │   └── time-intervals/ # Time management pages
+│   │   └── _app.page.tsx      # Next.js app configuration
+│   ├── components/
+│   │   ├── ConnectBox/        # Calendar connection component
+│   │   └── TimeIntervals/     # Time management components
 │   ├── lib/
 │   │   ├── auth/
 │   │   │   └── prisma-adapter.ts # Custom Prisma adapter for NextAuth
 │   │   ├── axios.ts             # Axios instance configuration
 │   │   └── prisma.ts           # Prisma client instance
-│   ├── pages/
-│   │   ├── api/
-│   │   │   ├── auth/           # Authentication endpoints
-│   │   │   └── users/          # User management endpoints
-│   │   ├── home/               # Home page components
-│   │   ├── register/          # Registration flow pages
-│   │   └── _app.page.tsx      # Next.js app configuration
 │   └── styles/
 │       └── globals.ts         # Global styles
 ├── prisma/
 │   ├── migrations/           # Database migrations
 │   ├── schema.prisma        # Database schema
 │   └── dev.db              # SQLite database
-├── public/                 # Static assets
-├── next.config.ts         # Next.js configuration
 └── biome.json            # Biome configuration
 ```
 
@@ -160,7 +174,8 @@ GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
 # NextAuth.js
-NEXT_AUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_SECRET="your-nextauth-secret"
+NEXTAUTH_URL="http://localhost:3000"
 ```
 
 ---
@@ -173,18 +188,26 @@ Currently implemented:
   - Google OAuth sign-in
   - Session management
   - Protected routes
+  - Calendar permissions handling
+
 - **Registration Flow**
-  - Username claim form
+  - Username claim form with validation
   - Calendar connection
   - Profile setup
+  - Time intervals configuration
+
 - **Form Components**
-  - Validation integration
+  - React Hook Form integration
+  - Zod validation schemas
   - Error handling
   - Loading states
+  - Field arrays for time intervals
+
 - **Layout**
   - Responsive design
   - Progress indicators
   - Status feedback
+  - Multi-step navigation
 
 ---
 
