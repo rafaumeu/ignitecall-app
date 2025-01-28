@@ -8,6 +8,7 @@ A modern scheduling system built with Next.js and TypeScript.
 [![Next.js](https://img.shields.io/badge/Next.js-Latest-black.svg)](https://nextjs.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-Latest-2D3748.svg)](https://www.prisma.io/)
 [![Ignite UI](https://img.shields.io/badge/Ignite_UI-Latest-00875F.svg)](https://github.com/rocketseat/ignite-ui)
+[![NextAuth.js](https://img.shields.io/badge/NextAuth.js-Latest-000000.svg)](https://next-auth.js.org/)
 
 ---
 
@@ -28,6 +29,7 @@ A modern scheduling system built with Next.js and TypeScript.
 ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 ![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+![NextAuth.js](https://img.shields.io/badge/NextAuth.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
 
 ---
 
@@ -38,34 +40,35 @@ A modern scheduling system built with Next.js and TypeScript.
 ![Yarn](https://img.shields.io/badge/Yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
 
 ---
-</div >
+</div>
 
 ## 🚀 Features
 
-- **Modern Authentication**:
-  - Cookie-based authentication system
+- **Advanced Authentication**:
+  - NextAuth.js integration with Google provider
+  - Custom Prisma adapter for NextAuth
+  - Session management and user data persistence
+  - Google Calendar scope authorization
   - Username uniqueness validation
-  - Secure user registration flow
-- **Smart Forms**:
-  - Real-time validation with Zod
-  - Form state management with React Hook Form
-  - Pre-population of form fields via query parameters
-- **Multi-step Registration**:
-  - Progress indicator
+- **User Registration Flow**:
+  - Multi-step registration process
   - Username claim system
+  - Calendar connection interface
   - Profile information collection
-- **API Integration**:
-  - RESTful endpoints with Next.js API routes
-  - Prisma ORM for database operations
-  - Axios for HTTP requests
-- **Development Experience**:
-  - TypeScript for type safety
-  - Biome for code formatting and linting
-  - Query logging for debugging
-- **UI Components**:
-  - Ignite UI component library
+- **Google Integration**:
+  - OAuth2 authentication
+  - Calendar API connection
+  - Automatic scope verification
+- **API Architecture**:
+  - Next.js API routes
+  - Prisma ORM integration
+  - Axios HTTP client
+  - Type-safe endpoints
+- **UI/UX**:
   - Responsive design
-  - Custom error handling components
+  - Loading states
+  - Error handling
+  - Progress indicators
 
 ---
 
@@ -73,6 +76,7 @@ A modern scheduling system built with Next.js and TypeScript.
 
 - Node.js 18+ (LTS version)
 - Yarn package manager
+- Google Cloud Platform account (for Calendar API)
 
 ---
 
@@ -94,7 +98,7 @@ yarn install
 3. Set up your environment variables:
 
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 4. Run Prisma migrations:
@@ -115,46 +119,72 @@ yarn dev
 
 ```
 ignite-call/
-├── prisma/          # Database schema and migrations
-├── public/          # Static assets
 ├── src/
-│   ├── components/  # Reusable React components
-│   │   ├── ui/     # UI components
-│   │   └── forms/  # Form components
-│   ├── pages/      # Next.js pages
-│   │   ├── api/    # API routes
-│   │   └── register/ # Registration flow pages
-│   ├── styles/     # Global styles
-│   ├── lib/        # Utility functions and configurations
-│   └── services/   # External service integrations
-├── biome.json      # Biome configuration
-├── next.config.js  # Next.js configuration
-└── tsconfig.json   # TypeScript configuration
+│   ├── @types/
+│   │   └── next-auth.d.ts       # NextAuth type definitions
+│   ├── assets/
+│   │   └── app-preview.png      # Application preview image
+│   ├── lib/
+│   │   ├── auth/
+│   │   │   └── prisma-adapter.ts # Custom Prisma adapter for NextAuth
+│   │   ├── axios.ts             # Axios instance configuration
+│   │   └── prisma.ts           # Prisma client instance
+│   ├── pages/
+│   │   ├── api/
+│   │   │   ├── auth/           # Authentication endpoints
+│   │   │   └── users/          # User management endpoints
+│   │   ├── home/               # Home page components
+│   │   ├── register/          # Registration flow pages
+│   │   └── _app.page.tsx      # Next.js app configuration
+│   └── styles/
+│       └── globals.ts         # Global styles
+├── prisma/
+│   ├── migrations/           # Database migrations
+│   ├── schema.prisma        # Database schema
+│   └── dev.db              # SQLite database
+├── public/                 # Static assets
+├── next.config.ts         # Next.js configuration
+└── biome.json            # Biome configuration
+```
+
+---
+
+## 🔧 Environment Variables
+
+```env
+# Prisma
+DATABASE_URL="file:./dev.db"
+
+# Google OAuth
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# NextAuth.js
+NEXT_AUTH_SECRET="your-nextauth-secret"
 ```
 
 ---
 
 ## 📱 Components
 
-Currently implemented components:
+Currently implemented:
 
-- Multi-step Registration Flow
+- **Authentication**
+  - Google OAuth sign-in
+  - Session management
+  - Protected routes
+- **Registration Flow**
   - Username claim form
-  - Profile information form
-  - Error handling components
-- Form Components
-  - Text input with validation
-  - Error message display
-  - Submit button with loading state
-- Progress Indicators
-  - Multi-step progress display
-  - Form submission status
-
----
-
-## 📚 Documentation
-
-API documentation and component usage examples coming soon.
+  - Calendar connection
+  - Profile setup
+- **Form Components**
+  - Validation integration
+  - Error handling
+  - Loading states
+- **Layout**
+  - Responsive design
+  - Progress indicators
+  - Status feedback
 
 ---
 
@@ -174,28 +204,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 🔧 Environment Variables
-
-```env
-# Database connection (currently using SQLite)
-DATABASE_URL="file:./dev.db"
-
-# Add these when implementing authentication
-# NEXTAUTH_SECRET="your-secret-here"
-# NEXTAUTH_URL="http://localhost:3000"
-
-# Add these when implementing Google Calendar integration
-# GOOGLE_CLIENT_ID=""
-# GOOGLE_CLIENT_SECRET=""
-```
-
----
-
 <div align="center">
 Made with ❤️ by Rafael Dias Zendron
-</div>
 
-<div align="center">
 <img src="https://github.com/rafaumeu.png" width="100" height="100" style="border-radius: 50%;">
 
 ### Built with 💜 by Rafael Zendron
