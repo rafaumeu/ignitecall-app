@@ -1,28 +1,28 @@
-import { Container, FormError, Header } from '../style'
 import {
-  Text,
+  Button,
+  Checkbox,
   Heading,
   MultiStep,
-  Button,
+  Text,
   TextInput,
-  Checkbox,
 } from '@ignite-ui/react'
+import { Container, FormError, Header } from '../style'
 
+import { api } from '@/lib/axios'
+import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
+import { getWeekDays } from '@/utils/get-week-days'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
+import { ArrowRight } from 'phosphor-react'
+import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
   IntervalBox,
   IntervalContainer,
-  IntervalItem,
   IntervalDay,
   IntervalInputs,
+  IntervalItem,
 } from './style'
-import { ArrowRight } from 'phosphor-react'
-import { Controller, useFieldArray, useForm } from 'react-hook-form'
-import { getWeekDays } from '@/utils/get-week-days'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
-import { api } from '@/lib/axios'
-import { useRouter } from 'next/router'
 
 const timeIntervalsFormSchema = z.object({
   intervals: z

@@ -1,4 +1,4 @@
-import { Box, styled, Text } from '@ignite-ui/react'
+import { Box, Text, styled } from '@ignite-ui/react'
 
 export const IntervalBox = styled(Box, {
   marginTop: '$6',

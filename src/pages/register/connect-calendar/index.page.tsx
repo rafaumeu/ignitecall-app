@@ -1,12 +1,12 @@
+import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
 import { Container, Header } from '../style'
-import { Button, Text, Heading, MultiStep } from '@ignite-ui/react'
 
 import { ArrowRight, Check } from 'phosphor-react'
 
-import { z } from 'zod'
-import { AuthError, ConnectBox, ConnectItem } from './style'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { z } from 'zod'
+import { AuthError, ConnectBox, ConnectItem } from './style'
 
 const registerFormSchema = z.object({
   username: z

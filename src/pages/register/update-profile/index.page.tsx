@@ -3,22 +3,22 @@ import { MultiStep } from '@ignite-ui/react'
 import { Text } from '@ignite-ui/react'
 import { Heading } from '@ignite-ui/react'
 
+import { api } from '@/lib/axios'
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { Container, Header } from '@/pages/register/style'
-import { ArrowRight } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import {
   FormAnnotation,
   ProfileBox,
 } from '@/pages/register/update-profile/styles'
-import { useSession } from 'next-auth/react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Avatar } from '@ignite-ui/react'
 import type { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
-import { Avatar } from '@ignite-ui/react'
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
-import { api } from '@/lib/axios'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { ArrowRight } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 const updateFormSchema = z.object({
   bio: z.string(),
