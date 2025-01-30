@@ -46,10 +46,17 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 
 - **Advanced Authentication**:
   - NextAuth.js integration with Google provider
-  - Custom Prisma adapter for NextAuth
+  - Custom Prisma adapter for NextAuth with NextPageContext support
   - Session management and user data persistence
   - Google Calendar scope authorization
   - Username uniqueness validation
+
+- **User Profiles**:
+  - Customizable user bio
+  - Profile avatar display and management
+  - Profile page customization
+  - API endpoints for profile updates
+  - Dynamic profile preview
 
 - **User Registration Flow**:
   - Multi-step registration process
@@ -63,12 +70,14 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
   - Minimum 1-hour interval validation
   - Time conversion and validation system
   - Flexible scheduling options
+  - Advanced interval management
 
 - **Google Integration**:
   - OAuth2 authentication
   - Calendar API connection
   - Automatic scope verification
   - Error handling for missing permissions
+  - Seamless calendar synchronization
 
 - **API Architecture**:
   - Next.js API routes
@@ -76,6 +85,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
   - Axios HTTP client
   - Type-safe endpoints
   - Cookie-based authentication
+  - Robust error handling
 
 - **UI/UX**:
   - Responsive design
@@ -83,6 +93,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
   - Error handling
   - Progress indicators
   - Form validation with Zod
+  - Modern component architecture
 
 ---
 
@@ -140,13 +151,16 @@ ignite-call/
 │   ├── pages/
 │   │   ├── api/
 │   │   │   ├── auth/           # Authentication endpoints
-│   │   │   └── users/          # User management endpoints
+│   │   │   ├── users/          # User management endpoints
+│   │   │   └── profile/        # Profile management endpoints
 │   │   ├── register/          # Registration flow pages
 │   │   │   └── time-intervals/ # Time management pages
+│   │   ├── profile/           # User profile pages
 │   │   └── _app.page.tsx      # Next.js app configuration
 │   ├── components/
 │   │   ├── ConnectBox/        # Calendar connection component
-│   │   └── TimeIntervals/     # Time management components
+│   │   ├── TimeIntervals/     # Time management components
+│   │   └── Profile/           # Profile-related components
 │   ├── lib/
 │   │   ├── auth/
 │   │   │   └── prisma-adapter.ts # Custom Prisma adapter for NextAuth
@@ -189,12 +203,21 @@ Currently implemented:
   - Session management
   - Protected routes
   - Calendar permissions handling
+  - NextPageContext support
+
+- **Profile Management**
+  - Bio field customization
+  - Avatar management
+  - Profile preview
+  - Profile update API
+  - User data persistence
 
 - **Registration Flow**
   - Username claim form with validation
   - Calendar connection
   - Profile setup
   - Time intervals configuration
+  - Multi-step validation
 
 - **Form Components**
   - React Hook Form integration
@@ -202,12 +225,14 @@ Currently implemented:
   - Error handling
   - Loading states
   - Field arrays for time intervals
+  - Dynamic form updates
 
 - **Layout**
   - Responsive design
   - Progress indicators
   - Status feedback
   - Multi-step navigation
+  - Modern UI components
 
 ---
 
