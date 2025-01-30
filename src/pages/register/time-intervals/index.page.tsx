@@ -91,7 +91,7 @@ export default function TimeIntervals() {
     control,
   })
   const intervals = watch('intervals')
-  const weekDays = getWeekDays()
+  const weekDays = getWeekDays({ short: true })
   const router = useRouter()
   async function handleSetTimeIntervals(data: any) {
     const { intervals } = data as TimeIntervalsFormOutput
