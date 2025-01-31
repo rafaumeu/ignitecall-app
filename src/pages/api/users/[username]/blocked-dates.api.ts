@@ -50,6 +50,29 @@ export default async function handle(
   HAVING amount >= size       
     
 `
-  const blockedDates = blockedDatesRaw.map(item => Number(item.date))
+  const today = dayjs()
+  const currentDate = today.format('YYYY-MM')
+  const targetDate = `${year}-${padMonth}`
+
+  let todayBlockedTime = false
+  if (currentDate === targetDate) {
+    const intervals = await prisma.userTimeInterval.findFirst({
+      where: {
+        user_id: user.id,
+        week_day: today.get('day'),
+      },
+    })
+    if (intervals) {
+      const endTimeInMinutes = intervals.time_end_in_minutes
+      const now = today.get('hour') * 60 + today.get('minute')
+      if (now >= endTimeInMinutes) {
+        todayBlockedTime = true
+      }
+    }
+  }
+  const blockedDates = [
+    ...blockedDatesRaw.map(item => Number(item.date)),
+    ...(todayBlockedTime ? [today.get('date')] : []),
+  ]
   return res.json({ blockedWeekDays, blockedDates })
 }
