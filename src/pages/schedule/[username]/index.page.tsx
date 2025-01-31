@@ -5,6 +5,7 @@ import { Heading } from '@ignite-ui/react'
 import type { GetStaticPaths, GetStaticProps } from 'next'
 import { Container, UserHeader } from './styles'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 
 interface ScheduleProps {
   user: {
@@ -13,10 +14,28 @@ interface ScheduleProps {
     avatarUrl: string
   }
 }
+
 export default function Schedule({ user }: ScheduleProps) {
+  const router = useRouter()
+  const username = String(router.query.username)
   return (
     <>
-      <NextSeo title={`Agendar com ${user.name} | Ignite Call`} />
+      <NextSeo
+        title={`Agendar com ${user.name} | Ignite Call`}
+        openGraph={{
+          title: `Agendar com ${user.name} | Ignite Call`,
+          description: user.bio,
+          url: `https://www.seusite.com/schedule/${username}`,
+          images: [
+            {
+              url: user.avatarUrl,
+              width: 1200,
+              height: 630,
+              alt: `imagem do perfil de ${user.name}`,
+            },
+          ],
+        }}
+      />
       <Container>
         <UserHeader>
           <Avatar src={user.avatarUrl} />
