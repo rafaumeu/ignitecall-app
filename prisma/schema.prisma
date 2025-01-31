@@ -49,7 +49,7 @@ model Session {
   session_token String   @unique
   user_id       String
   expires       DateTime
-  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@map("sessions")
 }
@@ -60,7 +60,7 @@ model UserTimeInterval {
   time_start_in_minutes Int
   time_end_in_minutes   Int
 
-  user    User   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id String
 
   @@map("user_time_intervals")
@@ -74,7 +74,7 @@ model Scheduling {
   observations String?
   created_at   DateTime @default(now())
 
-  user    User   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   user_id String
 
   @@map("schedulings")
