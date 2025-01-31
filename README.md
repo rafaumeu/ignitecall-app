@@ -9,6 +9,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 [![Prisma](https://img.shields.io/badge/Prisma-Latest-2D3748.svg)](https://www.prisma.io/)
 [![Ignite UI](https://img.shields.io/badge/Ignite_UI-Latest-00875F.svg)](https://github.com/rocketseat/ignite-ui)
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-Latest-000000.svg)](https://next-auth.js.org/)
+[![Google API](https://img.shields.io/badge/Google_APIs-4285F4.svg)](https://developers.google.com/apis)
 
 ---
 
@@ -46,75 +47,54 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 
 ## 🚀 Features
 
-- **Advanced Authentication**:
-  - NextAuth.js integration with Google provider
-  - Custom Prisma adapter for NextAuth with NextPageContext support
-  - Session management and user data persistence
-  - Google Calendar scope authorization
-  - Username uniqueness validation
+- **Google Meet Integration (New!)**:
+  - Automated Google Meet creation for scheduled meetings
+  - Integration with Google Calendar API
+  - Secure OAuth token management
+  - Attendee management and conference data handling
 
-- **Scheduling System**:
-  - Interactive calendar interface with date selection
+- **Advanced Scheduling System**:
+  - Interactive calendar interface with blocked dates
   - Dynamic time slots based on user availability
-  - Blocked dates and times management
+  - Conflict detection and prevention
   - Past dates blocking
   - Real-time availability updates
-  - User-specific scheduling pages
+  - Multi-step scheduling form with confirmation
 
-- **Calendar Management**:
-  - Integration with Google Calendar
-  - Dynamic calendar display with weeks and days
-  - Blocked days visualization
-  - Available times calculation
-  - Time zone support with Day.js
-  - Error handling for calendar operations
+- **Google Calendar Integration**:
+  - Seamless synchronization with Google Calendar
+  - OAuth 2.0 authentication with offline access
+  - Automatic token refresh
+  - Event creation and management
+  - Calendar scope authorization
 
-- **User Profiles**:
-  - Customizable user bio
-  - Profile avatar display
-  - Dynamic profile preview
-  - API endpoints for profile updates
+- **User Management**:
+  - Custom user profiles with bio
   - Username-based routing
+  - Profile customization
+  - Cascade relationship configuration
+  - Session management with NextAuth.js
 
 - **Time Management**:
-  - Weekly schedule configuration
+  - Flexible weekly schedule configuration
   - Custom time intervals for each day
-  - Minimum 1-hour interval validation
-  - Automatic time conversion
-  - Blocked weekdays management
+  - Automated availability calculation
+  - Time zone support with Day.js
+  - Conflict prevention system
 
-- **Data Management**:
-  - React Query integration for data fetching
+- **Data Handling**:
+  - React Query integration for efficient data fetching
   - Optimistic updates
-  - Cache management
-  - Real-time data synchronization
   - Error boundary handling
-
-- **Form Handling**:
-  - React Hook Form integration
-  - Zod validation schemas
-  - Dynamic form updates
-  - Error messages display
-  - Field array support for time intervals
-
-- **UI/UX**:
-  - Responsive design
-  - Loading states
-  - Error feedback
-  - Progress indicators
-  - Modern component architecture
-  - Tailwind CSS styling
-
----
+  - Form validation with Zod
+  - Real-time data synchronization
 
 ## 📦 Prerequisites
 
 - Node.js 18+ (LTS version)
 - Yarn package manager
-- Google Cloud Platform account (for Calendar API)
+- Google Cloud Platform account with Calendar API enabled
 - SQLite (for development)
-
----
 
 ## 🛠️ Setup
 
@@ -137,57 +117,27 @@ yarn install
 cp .env.example .env
 ```
 
-4. Run Prisma migrations:
+4. Configure Google OAuth:
+   - Enable Calendar and Meet APIs in Google Cloud Console
+   - Set up OAuth consent screen with required scopes
+   - Create OAuth credentials and add redirect URIs
+
+5. Run Prisma migrations:
 
 ```bash
 yarn prisma migrate dev
 ```
 
-5. Start the development server:
+6. Start the development server:
 
 ```bash
 yarn dev
 ```
 
----
-
-## 🏗️ Project Structure
-
-```
-ignite-call/
-├── src/
-│   ├── @types/
-│   │   └── next-auth.d.ts        # NextAuth type definitions
-│   ├── pages/
-│   │   ├── api/
-│   │   │   ├── auth/            # Authentication endpoints
-│   │   │   ├── users/           # User management endpoints
-│   │   │   └── availability/    # Availability management endpoints
-│   │   ├── schedule/           # Scheduling pages
-│   │   ├── register/           # Registration flow pages
-│   │   └── _app.page.tsx       # Next.js app configuration
-│   ├── components/
-│   │   ├── Calendar/           # Calendar components
-│   │   ├── TimeIntervals/      # Time management components
-│   │   └── ScheduleForm/       # Scheduling form components
-│   ├── lib/
-│   │   ├── auth/              # Authentication utilities
-│   │   ├── dayjs.ts          # Day.js configuration
-│   │   └── prisma.ts         # Prisma client instance
-│   └── styles/
-│       └── globals.ts         # Global styles
-├── prisma/
-│   ├── migrations/           # Database migrations
-│   └── schema.prisma        # Database schema
-└── biome.json             # Biome configuration
-```
-
----
-
 ## 🔧 Environment Variables
 
 ```env
-# Prisma
+# Database
 DATABASE_URL="file:./dev.db"
 
 # Google OAuth
@@ -195,70 +145,71 @@ GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
 # NextAuth.js
-# Generate a secure secret using: openssl rand -base64 32
 NEXTAUTH_SECRET="your-nextauth-secret"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
-### Setting up Google OAuth
-
-1. Visit the [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable the Google Calendar API
-4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client ID"
-5. Configure the OAuth consent screen:
-   - Add authorized domains
-   - Add scopes for Google Calendar API
-6. Create OAuth 2.0 credentials:
-   - Set authorized JavaScript origins (e.g., `http://localhost:3000`)
-   - Set authorized redirect URIs (e.g., `http://localhost:3000/api/auth/callback/google`)
-7. Copy the generated Client ID and Client Secret to your .env file
-
-### Generating NextAuth Secret
-
-Run this command to generate a secure secret for NextAuth:
-
-```bash
-openssl rand -base64 32
-```
-
-Copy the output to your .env file as NEXTAUTH_SECRET
-
 ## 📱 Latest Updates
 
-Recent implementations based on the latest commits:
+Recent implementations from the latest commits:
+
+- **Google Meet Integration**:
+  - Automated meeting creation
+  - Conference data handling
+  - Attendee management
+  - OAuth token refresh system
+
+- **Schedule Form Improvements**:
+  - Multi-step form process
+  - Confirmation step with details
+  - Validation enhancements
+  - Error handling improvements
 
 - **Calendar Enhancements**:
-  - Blocked days visualization
-  - Past dates blocking
+  - Blocked dates visualization
   - Dynamic availability updates
-  - Week and day display optimization
+  - Past dates blocking
+  - Conflict prevention
 
-- **Availability Management**:
-  - New API endpoints for availability
-  - Real-time blocked dates updates
-  - Error handling improvements
-  - Scheduling validation
+- **Authentication Updates**:
+  - Enhanced Google OAuth integration
+  - Offline access configuration
+  - Token refresh mechanism
+  - Session management improvements
 
-- **Data Fetching**:
-  - React Query integration
-  - Optimistic updates
-  - Cache management
-  - Error handling improvements
+## 🏗️ Project Structure
 
-- **Form Improvements**:
-  - Enhanced validation
-  - Dynamic updates
-  - Better error feedback
-  - Loading states
-
----
+```
+ignite-call/
+├── src/
+│   ├── @types/
+│   │   └── next-auth.d.ts
+│   ├── pages/
+│   │   ├── api/
+│   │   │   ├── auth/
+│   │   │   ├── users/
+│   │   │   └── schedule/
+│   │   ├── schedule/
+│   │   └── register/
+│   ├── components/
+│   │   ├── Calendar/
+│   │   ├── ScheduleForm/
+│   │   └── TimeIntervals/
+│   ├── lib/
+│   │   ├── google/
+│   │   ├── auth/
+│   │   └── prisma.ts
+│   └── styles/
+│       └── globals.ts
+├── prisma/
+│   ├── migrations/
+│   └── schema.prisma
+└── biome.json
+```
 
 ## 🛡️ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
 ## 🤝 Contributing
 
@@ -272,8 +223,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 Made with ❤️ by Rafael Dias Zendron
-</div>
-<div align="center">
+
 <img src="https://github.com/rafaumeu.png" width="100" height="100" style="border-radius: 50%;">
 
 ### Built with 💜 by Rafael Zendron
