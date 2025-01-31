@@ -30,6 +30,8 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 ![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=for-the-badge&logo=reacthookform&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 ![NextAuth.js](https://img.shields.io/badge/NextAuth.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
+![React Query](https://img.shields.io/badge/React_Query-FF4154?style=for-the-badge&logo=react-query&logoColor=white)
+![Day.js](https://img.shields.io/badge/Day.js-FF5F4C?style=for-the-badge&logo=day.js&logoColor=white)
 
 ---
 
@@ -51,49 +53,57 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
   - Google Calendar scope authorization
   - Username uniqueness validation
 
+- **Scheduling System**:
+  - Interactive calendar interface with date selection
+  - Dynamic time slots based on user availability
+  - Blocked dates and times management
+  - Past dates blocking
+  - Real-time availability updates
+  - User-specific scheduling pages
+
+- **Calendar Management**:
+  - Integration with Google Calendar
+  - Dynamic calendar display with weeks and days
+  - Blocked days visualization
+  - Available times calculation
+  - Time zone support with Day.js
+  - Error handling for calendar operations
+
 - **User Profiles**:
   - Customizable user bio
-  - Profile avatar display and management
-  - Profile page customization
-  - API endpoints for profile updates
+  - Profile avatar display
   - Dynamic profile preview
-
-- **User Registration Flow**:
-  - Multi-step registration process
-  - Username claim system with validation
-  - Calendar connection interface
-  - Profile information collection
-  - Time intervals management for availability
+  - API endpoints for profile updates
+  - Username-based routing
 
 - **Time Management**:
-  - Define working hours for each day of the week
+  - Weekly schedule configuration
+  - Custom time intervals for each day
   - Minimum 1-hour interval validation
-  - Time conversion and validation system
-  - Flexible scheduling options
-  - Advanced interval management
+  - Automatic time conversion
+  - Blocked weekdays management
 
-- **Google Integration**:
-  - OAuth2 authentication
-  - Calendar API connection
-  - Automatic scope verification
-  - Error handling for missing permissions
-  - Seamless calendar synchronization
+- **Data Management**:
+  - React Query integration for data fetching
+  - Optimistic updates
+  - Cache management
+  - Real-time data synchronization
+  - Error boundary handling
 
-- **API Architecture**:
-  - Next.js API routes
-  - Prisma ORM integration
-  - Axios HTTP client
-  - Type-safe endpoints
-  - Cookie-based authentication
-  - Robust error handling
+- **Form Handling**:
+  - React Hook Form integration
+  - Zod validation schemas
+  - Dynamic form updates
+  - Error messages display
+  - Field array support for time intervals
 
 - **UI/UX**:
   - Responsive design
   - Loading states
-  - Error handling
+  - Error feedback
   - Progress indicators
-  - Form validation with Zod
   - Modern component architecture
+  - Tailwind CSS styling
 
 ---
 
@@ -121,7 +131,7 @@ cd ignite-call
 yarn install
 ```
 
-3. Set up your environment variables:
+3. Set up environment variables:
 
 ```bash
 cp .env.example .env
@@ -147,32 +157,29 @@ yarn dev
 ignite-call/
 ├── src/
 │   ├── @types/
-│   │   └── next-auth.d.ts       # NextAuth type definitions
+│   │   └── next-auth.d.ts        # NextAuth type definitions
 │   ├── pages/
 │   │   ├── api/
-│   │   │   ├── auth/           # Authentication endpoints
-│   │   │   ├── users/          # User management endpoints
-│   │   │   └── profile/        # Profile management endpoints
-│   │   ├── register/          # Registration flow pages
-│   │   │   └── time-intervals/ # Time management pages
-│   │   ├── profile/           # User profile pages
-│   │   └── _app.page.tsx      # Next.js app configuration
+│   │   │   ├── auth/            # Authentication endpoints
+│   │   │   ├── users/           # User management endpoints
+│   │   │   └── availability/    # Availability management endpoints
+│   │   ├── schedule/           # Scheduling pages
+│   │   ├── register/           # Registration flow pages
+│   │   └── _app.page.tsx       # Next.js app configuration
 │   ├── components/
-│   │   ├── ConnectBox/        # Calendar connection component
-│   │   ├── TimeIntervals/     # Time management components
-│   │   └── Profile/           # Profile-related components
+│   │   ├── Calendar/           # Calendar components
+│   │   ├── TimeIntervals/      # Time management components
+│   │   └── ScheduleForm/       # Scheduling form components
 │   ├── lib/
-│   │   ├── auth/
-│   │   │   └── prisma-adapter.ts # Custom Prisma adapter for NextAuth
-│   │   ├── axios.ts             # Axios instance configuration
-│   │   └── prisma.ts           # Prisma client instance
+│   │   ├── auth/              # Authentication utilities
+│   │   ├── dayjs.ts          # Day.js configuration
+│   │   └── prisma.ts         # Prisma client instance
 │   └── styles/
 │       └── globals.ts         # Global styles
 ├── prisma/
 │   ├── migrations/           # Database migrations
-│   ├── schema.prisma        # Database schema
-│   └── dev.db              # SQLite database
-└── biome.json            # Biome configuration
+│   └── schema.prisma        # Database schema
+└── biome.json             # Biome configuration
 ```
 
 ---
@@ -188,51 +195,62 @@ GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
 # NextAuth.js
+# Generate a secure secret using: openssl rand -base64 32
 NEXTAUTH_SECRET="your-nextauth-secret"
 NEXTAUTH_URL="http://localhost:3000"
 ```
 
----
+### Setting up Google OAuth
 
-## 📱 Components
+1. Visit the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google Calendar API
+4. Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client ID"
+5. Configure the OAuth consent screen:
+   - Add authorized domains
+   - Add scopes for Google Calendar API
+6. Create OAuth 2.0 credentials:
+   - Set authorized JavaScript origins (e.g., `http://localhost:3000`)
+   - Set authorized redirect URIs (e.g., `http://localhost:3000/api/auth/callback/google`)
+7. Copy the generated Client ID and Client Secret to your .env file
 
-Currently implemented:
+### Generating NextAuth Secret
 
-- **Authentication**
-  - Google OAuth sign-in
-  - Session management
-  - Protected routes
-  - Calendar permissions handling
-  - NextPageContext support
+Run this command to generate a secure secret for NextAuth:
 
-- **Profile Management**
-  - Bio field customization
-  - Avatar management
-  - Profile preview
-  - Profile update API
-  - User data persistence
+```bash
+openssl rand -base64 32
+```
 
-- **Registration Flow**
-  - Username claim form with validation
-  - Calendar connection
-  - Profile setup
-  - Time intervals configuration
-  - Multi-step validation
+Copy the output to your .env file as NEXTAUTH_SECRET
 
-- **Form Components**
-  - React Hook Form integration
-  - Zod validation schemas
-  - Error handling
+## 📱 Latest Updates
+
+Recent implementations based on the latest commits:
+
+- **Calendar Enhancements**:
+  - Blocked days visualization
+  - Past dates blocking
+  - Dynamic availability updates
+  - Week and day display optimization
+
+- **Availability Management**:
+  - New API endpoints for availability
+  - Real-time blocked dates updates
+  - Error handling improvements
+  - Scheduling validation
+
+- **Data Fetching**:
+  - React Query integration
+  - Optimistic updates
+  - Cache management
+  - Error handling improvements
+
+- **Form Improvements**:
+  - Enhanced validation
+  - Dynamic updates
+  - Better error feedback
   - Loading states
-  - Field arrays for time intervals
-  - Dynamic form updates
-
-- **Layout**
-  - Responsive design
-  - Progress indicators
-  - Status feedback
-  - Multi-step navigation
-  - Modern UI components
 
 ---
 
@@ -254,7 +272,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 Made with ❤️ by Rafael Dias Zendron
-
+</div>
+<div align="center">
 <img src="https://github.com/rafaumeu.png" width="100" height="100" style="border-radius: 50%;">
 
 ### Built with 💜 by Rafael Zendron
