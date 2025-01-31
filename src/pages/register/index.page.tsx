@@ -10,10 +10,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
-import { useEffect } from 'react'
+import { type ComponentProps, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { NextSeo } from 'next-seo'
+type TextInputProps = ComponentProps<typeof TextInput>
+
 const registerFormSchema = z.object({
   username: z
     .string()
@@ -75,7 +77,7 @@ export default function Register() {
             <TextInput
               prefix="ignite.com/"
               placeholder={'seu-usuário'}
-              {...register('username')}
+              {...(register('username') as TextInputProps)}
             />
             {errors.username && (
               <FormError size="sm">{errors.username.message}</FormError>
@@ -83,7 +85,10 @@ export default function Register() {
           </label>
           <label>
             <Text size="sm">Nome completo</Text>
-            <TextInput placeholder={'Seu nome'} {...register('name')} />
+            <TextInput
+              placeholder={'Seu nome'}
+              {...(register('name') as TextInputProps)}
+            />
             {errors.name && (
               <FormError size="sm">{errors.name.message}</FormError>
             )}

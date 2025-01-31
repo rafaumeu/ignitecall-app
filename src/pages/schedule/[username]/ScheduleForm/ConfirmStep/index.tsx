@@ -7,6 +7,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import dayjs from 'dayjs'
 import { api } from '@/lib/axios'
 import { useRouter } from 'next/router'
+import type { ComponentProps } from 'react'
+type TextInputProps = ComponentProps<typeof TextInput>
 
 const confirmFormSchema = z.object({
   name: z.string().min(3, { message: 'O nome precisa no mínimo 3 caracteres' }),
@@ -57,7 +59,10 @@ export function ConfirmStep({
       </FormHeader>
       <label>
         <Text size="sm">Nome completo</Text>
-        <TextInput placeholder="Seu nome" {...register('name')} />
+        <TextInput
+          placeholder="Seu nome"
+          {...(register('name') as TextInputProps)}
+        />
         {errors.name && <FormError size="sm">{errors.name.message}</FormError>}
       </label>
       <label>
@@ -65,8 +70,9 @@ export function ConfirmStep({
         <TextInput
           type="email"
           placeholder="johndoe@example.com"
-          {...register('email')}
+          {...(register('email') as TextInputProps)}
         />
+
         {errors.email && (
           <FormError size="sm">{errors.email.message}</FormError>
         )}

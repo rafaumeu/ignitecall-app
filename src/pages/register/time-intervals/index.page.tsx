@@ -24,6 +24,8 @@ import {
   IntervalItem,
 } from './style'
 import { NextSeo } from 'next-seo'
+import type { ComponentProps } from 'react'
+type TextInputProps = ComponentProps<typeof TextInput>
 
 const timeIntervalsFormSchema = z.object({
   intervals: z
@@ -142,14 +144,18 @@ export default function TimeIntervals() {
                       type="time"
                       step={60}
                       disabled={!intervals[index].enabled}
-                      {...register(`intervals.${index}.startTime`)}
+                      {...(register(
+                        `intervals.${index}.startTime`
+                      ) as TextInputProps)}
                     />
                     <TextInput
                       size="sm"
                       type="time"
                       step={60}
                       disabled={!intervals[index].enabled}
-                      {...register(`intervals.${index}.endTime`)}
+                      {...(register(
+                        `intervals.${index}.endTime`
+                      ) as TextInputProps)}
                     />
                   </IntervalInputs>
                 </IntervalItem>

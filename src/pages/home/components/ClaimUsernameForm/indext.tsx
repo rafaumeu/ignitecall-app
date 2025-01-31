@@ -5,6 +5,7 @@ import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormAnnotation } from './styles'
+import type { ComponentProps } from 'react'
 
 const claimUsernameFormSchema = z.object({
   username: z
@@ -15,7 +16,10 @@ const claimUsernameFormSchema = z.object({
     })
     .transform(username => username.toLowerCase()),
 })
+type TextInputProps = ComponentProps<typeof TextInput>
+
 type ClaimUsernameFormSchema = z.infer<typeof claimUsernameFormSchema>
+
 export function ClaimUserNameForm() {
   const {
     register,
@@ -29,6 +33,7 @@ export function ClaimUserNameForm() {
     const { username } = data
     await router.push(`/register?username=${username}`)
   }
+
   return (
     <>
       <Form as="form" onSubmit={handleSubmit(handleClaimUsername)}>
@@ -36,7 +41,7 @@ export function ClaimUserNameForm() {
           size="sm"
           prefix="ignite.com/"
           placeholder="seu-usuário"
-          {...register('username')}
+          {...(register('username') as TextInputProps)}
         />
         <Button size="sm" type="submit" disabled={isSubmitting}>
           Reservar
