@@ -9,18 +9,17 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  username   String   @unique
-  name       String
-  bio        String?  @db.Text
-  email      String?  @unique
-  avatar_url String?
-  created_at DateTime @default(now())
-
+  id            String             @id @default(uuid())
+  username      String             @unique
+  name          String
+  bio           String?
+  email         String?            @unique
+  avatar_url    String?
+  created_at    DateTime           @default(now())
   accounts      Account[]
+  Scheduling    Scheduling[]
   sessions      Session[]
   timeIntervals UserTimeInterval[]
-  Scheduling    Scheduling[]
 
   @@map("users")
 }
@@ -31,15 +30,14 @@ model Account {
   type                String
   provider            String
   provider_account_id String
-  refresh_token       String? @db.Text
-  access_token        String? @db.Text
+  refresh_token       String?
+  access_token        String?
   expires_at          Int?
   token_type          String?
   scope               String?
-  id_token            String? @db.Text
+  id_token            String?
   session_state       String?
-
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user                User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@unique([provider, provider_account_id])
   @@map("accounts")
@@ -50,7 +48,7 @@ model Session {
   session_token String   @unique
   user_id       String
   expires       DateTime
-  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user          User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("sessions")
 }
@@ -60,9 +58,8 @@ model UserTimeInterval {
   week_day              Int
   time_start_in_minutes Int
   time_end_in_minutes   Int
-
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user_id String
+  user_id               String
+  user                  User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("user_time_intervals")
 }
@@ -74,9 +71,8 @@ model Scheduling {
   email        String
   observations String?
   created_at   DateTime @default(now())
-
-  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user_id String
+  user_id      String
+  user         User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("schedulings")
 }
