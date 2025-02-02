@@ -1,4 +1,4 @@
-FROM node:22-slim
+FROM node:22-alpine3.21
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ COPY .env ./
 COPY .env.production ./
 COPY prisma ./prisma/  
 
-RUN apt-get update -y && apt-get install -y openssl
+RUN apk add --no-cache openssl
 
 RUN yarn
 
