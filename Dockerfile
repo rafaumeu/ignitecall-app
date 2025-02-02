@@ -2,7 +2,8 @@ FROM node:22-slim
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY package.json yarn.lock .yarnrc.yml ./
+COPY .yarn ./.yarn
 COPY .env ./
 COPY .env.production ./
 COPY prisma ./prisma/  
