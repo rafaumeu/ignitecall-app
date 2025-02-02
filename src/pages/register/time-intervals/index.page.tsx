@@ -1,11 +1,11 @@
 import {
   Button,
-  Checkbox,
+  CheckBox,
   Heading,
   MultiStep,
   Text,
   TextInput,
-} from '@ignite-ui/react'
+} from '@rafaumeu-ignite-ui/react'
 import { Container, FormError, Header } from '../style'
 
 import { api } from '@/lib/axios'
@@ -127,7 +127,7 @@ export default function TimeIntervals() {
                       control={control}
                       render={({ field }) => {
                         return (
-                          <Checkbox
+                          <CheckBox
                             onCheckedChange={checked =>
                               field.onChange(!!checked)
                             }

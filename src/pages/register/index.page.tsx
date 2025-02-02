@@ -1,7 +1,7 @@
-import { Button, TextInput } from '@ignite-ui/react'
-import { MultiStep } from '@ignite-ui/react'
-import { Text } from '@ignite-ui/react'
-import { Heading } from '@ignite-ui/react'
+import { Button, TextInput } from '@rafaumeu-ignite-ui/react'
+import { MultiStep } from '@rafaumeu-ignite-ui/react'
+import { Text } from '@rafaumeu-ignite-ui/react'
+import { Heading } from '@rafaumeu-ignite-ui/react'
 import { Container, Form, FormError } from './style'
 
 import { api } from '@/lib/axios'

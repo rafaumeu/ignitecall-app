@@ -123,18 +123,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ignite-ui/react@npm:^2.2.4":
-  version: 2.2.4
-  resolution: "@ignite-ui/react@npm:2.2.4"
-  dependencies:
-    "@radix-ui/react-avatar": ^1.0.0
-    "@radix-ui/react-checkbox": ^1.0.0
-    "@stitches/react": ^1.2.8
-    phosphor-react: ^1.4.1
-  checksum: 96976bf700656074d17db4ee12cb96a163f32e8914af865aa051ff5a4a9811e1dffd000f8194431da805fc948bf2ee8693295b56e0f4a4e15cc3ce4291003025
-  languageName: node
-  linkType: hard
-
 "@img/sharp-darwin-arm64@npm:0.33.5":
   version: 0.33.5
   resolution: "@img/sharp-darwin-arm64@npm:0.33.5"
@@ -500,7 +488,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-avatar@npm:^1.0.0":
+"@radix-ui/react-avatar@npm:^1.1.2":
   version: 1.1.2
   resolution: "@radix-ui/react-avatar@npm:1.1.2"
   dependencies:
@@ -522,7 +510,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-checkbox@npm:^1.0.0":
+"@radix-ui/react-checkbox@npm:^1.1.3":
   version: 1.1.3
   resolution: "@radix-ui/react-checkbox@npm:1.1.3"
   dependencies:
@@ -694,6 +682,20 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 01a11d4c07fc620b8a081e53d7ec8495b19a11e02688f3d9f47cf41a5fe0428d1e52ed60b2bf88dfd447dc2502797b9dad2841097389126dd108530913c4d90d
+  languageName: node
+  linkType: hard
+
+"@rafaumeu-ignite-ui/react@npm:latest":
+  version: 3.0.0
+  resolution: "@rafaumeu-ignite-ui/react@npm:3.0.0"
+  dependencies:
+    "@radix-ui/react-avatar": ^1.1.2
+    "@radix-ui/react-checkbox": ^1.1.3
+    "@stitches/react": ^1.2.8
+    phosphor-react: ^1.4.1
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  checksum: 129e3600c004411598ef64291afeb102e0ec4fea1a0333edc7c5590bbd32033cc99d2d0fd2f3dbd438a3499205cb66e8e93a3bbe2239ad1e35a518c4de29f23a
   languageName: node
   linkType: hard
 
@@ -967,8 +969,8 @@ __metadata:
   dependencies:
     "@biomejs/biome": ^1.9.4
     "@hookform/resolvers": ^3.10.0
-    "@ignite-ui/react": ^2.2.4
     "@prisma/client": ^6.3.0
+    "@rafaumeu-ignite-ui/react": latest
     "@tanstack/react-query": ^5.65.1
     "@types/cookies": ^0.9.0
     "@types/node": ^20

@@ -10,14 +10,15 @@ COPY prisma ./prisma/
 
 RUN apk add --no-cache openssl
 
-RUN yarn
-
+RUN yarn 
 COPY . .
 
 RUN yarn build
+RUN yarn workspaces focus  --production && yarn cache clean
 
 FROM node:22-alpine3.21
 
+COPY --from=build /usr/src/app/package.json ./package.json
 COPY --from=build /usr/src/app/.next ./next
 COPY --from=build /usr/src/app/node_modules ./node_modules
 

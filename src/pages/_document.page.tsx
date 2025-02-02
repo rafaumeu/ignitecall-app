@@ -1,4 +1,4 @@
-import { getCssText } from '@ignite-ui/react'
+import { getCssText } from '@rafaumeu-ignite-ui/react'
 import { Head, Html, Main, NextScript } from 'next/document'
 
 export default function Document() {

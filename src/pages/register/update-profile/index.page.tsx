@@ -1,7 +1,7 @@
-import { Button, TextArea, TextInput } from '@ignite-ui/react'
-import { MultiStep } from '@ignite-ui/react'
-import { Text } from '@ignite-ui/react'
-import { Heading } from '@ignite-ui/react'
+import { Button, TextArea, TextInput } from '@rafaumeu-ignite-ui/react'
+import { MultiStep } from '@rafaumeu-ignite-ui/react'
+import { Text } from '@rafaumeu-ignite-ui/react'
+import { Heading } from '@rafaumeu-ignite-ui/react'
 
 import { api } from '@/lib/axios'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
@@ -11,7 +11,7 @@ import {
   ProfileBox,
 } from '@/pages/register/update-profile/styles'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Avatar } from '@ignite-ui/react'
+import { Avatar } from '@rafaumeu-ignite-ui/react'
 import type { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'

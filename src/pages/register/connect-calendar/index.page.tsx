@@ -1,4 +1,4 @@
-import { Button, Heading, MultiStep, Text } from '@ignite-ui/react'
+import { Button, Heading, MultiStep, Text } from '@rafaumeu-ignite-ui/react'
 import { Container, Header } from '../style'
 
 import { ArrowRight, Check } from 'phosphor-react'

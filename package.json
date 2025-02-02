@@ -15,8 +15,8 @@
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
     "@hookform/resolvers": "^3.10.0",
-    "@ignite-ui/react": "^2.2.4",
     "@prisma/client": "^6.3.0",
+    "@rafaumeu-ignite-ui/react": "latest",
     "@tanstack/react-query": "^5.65.1",
     "@vercel/og": "^0.6.5",
     "axios": "^1.7.9",

@@ -1,7 +1,7 @@
-import '@ignite-ui/react'
+import '@rafaumeu-ignite-ui/react'
 import type { ReactNode } from 'react'
 
-declare module '@ignite-ui/react' {
+declare module '@rafaumeu-ignite-ui/react' {
   export interface TextInputProps {
     size?: 'sm' | 'md' | 'lg'
     prefix?: string
@@ -11,7 +11,7 @@ declare module '@ignite-ui/react' {
     step?: number
     children?: ReactNode
   }
-  export interface CheckboxProps {
+  export interface CheckBoxProps {
     onCheckedChange?: (checked: boolean) => void
     checked?: boolean
     children?: ReactNode
