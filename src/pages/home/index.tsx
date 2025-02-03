@@ -1,11 +1,10 @@
-
 import { Heading, Text } from '@rafaumeu-ignite-ui/react'
 import Image from 'next/image'
 import previewImage from '../../assets/app-preview.png'
 
 import { NextSeo } from 'next-seo'
-import { Container, Hero, Preview } from '@/pages/home/styles'
-import { ClaimUserNameForm } from '@/pages/home/components/ClaimUsernameForm/indext'
+import { Container, Hero, Preview } from './styles' 
+import { ClaimUserNameForm } from '@/pages/home/components/ClaimUsernameForm' 
 
 export default function Home() {
   return (
@@ -13,6 +12,17 @@ export default function Home() {
       <NextSeo
         title="Descomplique sua agenda | Ignite Call"
         description="Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre."
+        openGraph={{
+          title: "Descomplique sua agenda | Ignite Call",
+          description: "Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.",
+          images: [
+            {
+              url: previewImage.src,
+              alt: 'Calendário simbolizando a aplicação em funcionamento',
+            },
+          ],
+          url: 'https://www.ignitecall.com/home',
+        }}
       />
       <Container>
         <Hero>
@@ -27,7 +37,7 @@ export default function Home() {
           <Image
             src={previewImage}
             height={400}
-            quality={100}  // Changed from 100 to 75
+            quality={100}
             alt="Calendário simbolizando a aplicação em funcionamento"
             priority
           />

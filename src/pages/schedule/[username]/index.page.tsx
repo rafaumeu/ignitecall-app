@@ -25,7 +25,7 @@ export default function Schedule({ user }: ScheduleProps) {
         openGraph={{
           title: `Agendar com ${user.name} | Ignite Call`,
           description: user.bio,
-          url: `https://www.seusite.com/schedule/${username}`,
+          url: `https://ignitecall-app.vercel.app/schedule/${username}`,
           images: [
             {
               url: user.avatarUrl,

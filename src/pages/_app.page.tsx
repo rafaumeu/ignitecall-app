@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { DefaultSeo } from 'next-seo'
+
 globalStyles()
 
 export default function App({
@@ -15,12 +16,8 @@ export default function App({
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
         <DefaultSeo
-          openGraph={{
-            type: 'website',
-            locale: 'pt_BR',
-            url: 'https://www.url.ie/',
-            siteName: 'Ignite Call',
-          }}
+          titleTemplate="Ignite Call | %s"
+          description="A plataforma de agendamento descomplicada."
         />
         <Component {...pageProps} />
       </SessionProvider>
