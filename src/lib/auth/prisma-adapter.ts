@@ -1,9 +1,21 @@
 import { prisma } from '@/lib/prisma'
-import type { User, Account } from '@prisma/client'
+import type { User } from '@prisma/client'
 import type { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 import type { Adapter } from 'next-auth/adapters'
 import { destroyCookie, parseCookies } from 'nookies'
-
+interface Account {
+  userId: string
+  type: string
+  provider: string
+  providerAccountId: string
+  refresh_token?: string | null
+  access_token?: string | null
+  expires_at?: number | null
+  token_type?: string | null
+  scope?: string | null
+  id_token?: string | null
+  session_state?: string | null
+}
 export function PrismaAdapter(
   req: NextApiRequest | NextPageContext['req'],
   res: NextApiResponse | NextPageContext['res']
@@ -128,10 +140,10 @@ export function PrismaAdapter(
     async linkAccount(account: Account) {
       await prisma.account.create({
         data: {
-          user_id: account.user_id,
+          user_id: account.userId,
           type: account.type,
           provider: account.provider,
-          provider_account_id: account.provider_account_id,
+          provider_account_id: account.providerAccountId,
           refresh_token: account.refresh_token,
           access_token: account.access_token,
           expires_at: account.expires_at,
