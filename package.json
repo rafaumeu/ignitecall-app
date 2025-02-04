@@ -41,5 +41,5 @@
     "dotenv": "^16.4.7",
     "typescript": "^5"
   },
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@1.22.22"
 }

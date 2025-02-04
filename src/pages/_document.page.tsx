@@ -16,6 +16,7 @@ export default function Document() {
           rel="stylesheet"
         />
         <style id="stitches">{getCssText()}</style>
+        <script src="https://cdn.counter.dev/script.js" data-id="6db0ae4e-3992-4189-815b-2cbb7c5d6799" data-utcoffset="-3" />
       </Head>
       <body>
         <Main />

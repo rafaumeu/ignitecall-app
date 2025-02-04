@@ -4,9 +4,26 @@ services:
   postgres:
     image: bitnami/postgresql:14
     container_name: postgres
+    volumes:
+      - db:/var/lib/postgresql/data
     environment:
       - POSTGRESQL_USER=postgres
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=ignitecall
     ports:
       - 5432:5432
+
+  ignitecall:
+    build:
+      context: .
+    container_name: ignitecall
+    environment:
+      - NODE_OPTIONS=--enable-source-maps
+
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+
+volumes:
+  db:

@@ -1,27 +1,31 @@
-FROM node:22-alpine3.21 AS build
-
-WORKDIR /usr/src/app
-
+FROM node:20-alpine AS deps
+WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
-COPY .env ./
-COPY .env.production ./
-COPY prisma ./prisma/  
+COPY prisma ./prisma
+RUN yarn install
+RUN yarn prisma generate
 
-RUN apk add --no-cache openssl
-
-RUN yarn 
+FROM node:20-alpine AS builder
+WORKDIR /app
 COPY . .
-
+COPY --from=deps /app/node_modules ./node_modules
 RUN yarn build
-RUN yarn workspaces focus  --production && yarn cache clean
 
-FROM node:22-alpine3.21
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV production
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-COPY --from=build /usr/src/app/package.json ./package.json
-COPY --from=build /usr/src/app/.next ./next
-COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=deps /app/prisma ./prisma
+
+USER nextjs
 
 EXPOSE 3000
+ENV PORT 3000
 
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
