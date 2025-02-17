@@ -22,14 +22,14 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: DevOps Journey
-          column: In Progress
+          project: "Aprendizado Multi-Cloud (GCP/Azure)"
+          column: "In progress"
           repo-token: ${{ secrets.GH_PAT }}
 
       - name: Move to Done
         if: github.event.action == 'closed'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: DevOps Journey
-          column: Done
+          project: "Aprendizado Multi-Cloud (GCP/Azure)"
+          column: "Done"
           repo-token: ${{ secrets.GH_PAT }}
