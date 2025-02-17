@@ -8,6 +8,10 @@ on:
 jobs:
   project-automation:
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - uses: actions/add-to-project@v0.5.0
         with:
@@ -18,7 +22,7 @@ jobs:
         if: github.event.action == 'opened' || github.event.action == 'reopened'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: Ignite Call
+          project: DevOps Journey
           column: In Progress
           repo-token: ${{ secrets.GH_PAT }}
 
@@ -26,6 +30,6 @@ jobs:
         if: github.event.action == 'closed'
         uses: alex-page/github-project-automation-plus@v0.8.3
         with:
-          project: Ignite Call
+          project: DevOps Journey
           column: Done
           repo-token: ${{ secrets.GH_PAT }}
