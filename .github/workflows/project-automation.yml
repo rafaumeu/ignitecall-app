@@ -18,18 +18,41 @@ jobs:
           project-url: https://github.com/users/rafaumeu/projects/3
           github-token: ${{ secrets.GH_PAT }}
 
-      - name: Move to In Progress
-        if: github.event.action == 'opened' || github.event.action == 'reopened'
-        uses: alex-page/github-project-automation-plus@v0.8.3
+      - name: Move Issue
+        uses: actions/github-script@v6
         with:
-          project: "DevOps Journey"
-          column: "In Progress"
-          repo-token: ${{ secrets.GH_PAT }}
+          github-token: ${{ secrets.GH_PAT }}
+          script: |
+            const status = context.payload.action === 'closed' 
+              ? 'Done'  // ID: 98236657
+              : context.payload.action === 'opened' 
+                ? 'Todo' // ID: 47fc9ee3
+                : 'In Progress'; // ID: 47fc9ee4
 
-      - name: Move to Done
-        if: github.event.action == 'closed'
-        uses: alex-page/github-project-automation-plus@v0.8.3
-        with:
-          project: "DevOps Journey"
-          column: "Done"
-          repo-token: ${{ secrets.GH_PAT }}
+            const statusIds = {
+              'Done': '98236657',
+              'Todo': 'f75ad846',
+              'In Progress': '47fc9ee4'
+            };
+
+            const query = `
+              mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
+                updateProjectV2ItemFieldValue(
+                  input: {
+                    projectId: $projectId
+                    itemId: $itemId
+                    fieldId: $fieldId
+                    value: { singleSelectOptionId: $optionId }
+                  }
+                ) { projectV2Item { id } }
+              }
+            `;
+
+            const variables = {
+              projectId: "PVT_kwHOAdW7184AxuCE",
+              itemId: context.payload.issue ? context.payload.issue.node_id : context.payload.pull_request.node_id,
+              fieldId: "PVTSSF_lAHOAdW7184AxuCEzgnyZJw",
+              optionId: statusIds[status]
+            };
+
+            await github.graphql(query, variables);

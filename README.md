@@ -97,6 +97,46 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 
 ---
 
+## 🔄 CI/CD Pipeline
+
+### Continuous Integration
+
+Our CI pipeline automatically runs on every push and pull request:
+
+- **Code Quality Checks**:
+  - TypeScript type checking
+  - ESLint for code style
+  - Biome formatting validation
+  - Super-linter for additional checks
+
+- **Testing Strategy**:
+  - Unit tests with Vitest
+  - Multi-node version testing (16, 18, 20)
+  - Automated test runs on pull requests
+
+### Automated Workflows
+
+- **Project Board Automation**:
+  - Automatic issue/PR tracking
+  - Status updates (Todo → In Progress → Done)
+  - Integration with GitHub Projects
+
+- **Pull Request Management**:
+  - Automated PR labeling
+  - Code review enforcement
+  - Branch protection rules
+
+### Workflow Files
+
+- `ci.yml`: Main CI pipeline
+- `code-review.yml`: Code quality checks
+- `project-automation.yml`: Project board automation
+- `labeler.yml`: PR labeling automation
+
+To view the workflow runs, visit the [Actions tab](https://github.com/rafaumeu/ignite-call/actions) in the repository.
+
+---
+
 ## 📦 Prerequisites
 
 - Node.js 20+ (LTS version)
