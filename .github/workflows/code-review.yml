@@ -7,32 +7,37 @@ on:
     branches: [main]
 
 jobs:
-  code-review:
-    name: Code Review
+  type-check:
+    name: Type Check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "yarn"
+      - run: yarn install
+      - run: yarn tsc --noEmit
 
-      - name: Install dependencies
-        run: yarn install
+  lint:
+    name: Lint & Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "yarn"
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn format:check
 
-      - name: Type check
-        run: yarn tsc --noEmit
-
-      - name: Lint check
-        run: yarn lint
-
-      - name: Format check
-        run: yarn format:check
-
-      - name: Super-linter
-        uses: github/super-linter@v5
+  super-lint:
+    name: Super Linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/super-linter@v5
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
