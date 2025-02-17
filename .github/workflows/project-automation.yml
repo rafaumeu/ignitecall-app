@@ -19,15 +19,16 @@ jobs:
           github-token: ${{ secrets.GH_PAT }}
 
       - name: Move Issue
+        if: github.event_name == 'issues'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
             const status = context.payload.action === 'closed' 
-              ? 'Done'  // ID: 98236657
+              ? 'Done'
               : context.payload.action === 'opened' 
-                ? 'Todo' // ID: 47fc9ee3
-                : 'In Progress'; // ID: 47fc9ee4
+                ? 'Todo'
+                : 'In Progress';
 
             const statusIds = {
               'Done': '98236657',
@@ -35,7 +36,7 @@ jobs:
               'In Progress': '47fc9ee4'
             };
 
-            const query = `
+            await github.graphql(`
               mutation($projectId: ID!, $itemId: ID!, $fieldId: ID!, $optionId: String!) {
                 updateProjectV2ItemFieldValue(
                   input: {
@@ -46,13 +47,9 @@ jobs:
                   }
                 ) { projectV2Item { id } }
               }
-            `;
-
-            const variables = {
+            `, {
               projectId: "PVT_kwHOAdW7184AxuCE",
-              itemId: context.payload.issue ? context.payload.issue.node_id : context.payload.pull_request.node_id,
+              itemId: context.payload.issue.node_id,
               fieldId: "PVTSSF_lAHOAdW7184AxuCEzgnyZJw",
               optionId: statusIds[status]
-            };
-
-            await github.graphql(query, variables);
+            });
