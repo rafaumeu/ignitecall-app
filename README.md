@@ -1,6 +1,6 @@
-<div align="center">
-
 # ⏰ Ignite Call
+
+<div align="center">
 
 A modern scheduling system built with Next.js and TypeScript, featuring Google Calendar integration, Google Meet automation, and advanced scheduling capabilities.
 
@@ -21,6 +21,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 | [Project Structure](#️-project-structure) | [Docker Setup](#-docker-setup) | [Contributing](#-contributing) |
 
 ---
+</div>
 
 ## 🚀 Features
 
@@ -251,7 +252,7 @@ NEXTAUTH_URL="http://localhost:3000"
 
 ## 🏗️ Project Structure
 
-```
+```bash
 ignite-call/
 ├── src/
 │   ├── @types/
