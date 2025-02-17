@@ -10,7 +10,8 @@
     "format": "biome format . --write",
     "lint:fix": "biome check . --apply",
     "format:check": "biome format .",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
