@@ -12,8 +12,10 @@ import { api } from '@/lib/axios'
 import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import type { ComponentProps } from 'react'
 import { Controller, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import {
@@ -23,8 +25,6 @@ import {
   IntervalInputs,
   IntervalItem,
 } from './style'
-import { NextSeo } from 'next-seo'
-import type { ComponentProps } from 'react'
 type TextInputProps = ComponentProps<typeof TextInput>
 
 const timeIntervalsFormSchema = z.object({
@@ -98,11 +98,11 @@ export default function TimeIntervals() {
   const router = useRouter()
   async function handleSetTimeIntervals(data: TimeIntervalsFormInput) {
     const formData = timeIntervalsFormSchema.parse(data)
-    
+
     await api.post('/users/time-intervals', {
       intervals: formData.intervals,
     })
-    
+
     await router.push('/register/update-profile')
   }
   return (

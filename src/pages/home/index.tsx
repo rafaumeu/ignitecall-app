@@ -2,9 +2,9 @@ import { Heading, Text } from '@rafaumeu-ignite-ui/react'
 import Image from 'next/image'
 import previewImage from '../../assets/app-preview.png'
 
+import { ClaimUserNameForm } from '@/pages/home/components/ClaimUsernameForm'
 import { NextSeo } from 'next-seo'
-import { Container, Hero, Preview } from './styles' 
-import { ClaimUserNameForm } from '@/pages/home/components/ClaimUsernameForm' 
+import { Container, Hero, Preview } from './styles'
 
 export default function Home() {
   return (

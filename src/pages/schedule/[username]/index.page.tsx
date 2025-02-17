@@ -3,9 +3,9 @@ import { ScheduleForm } from '@/pages/schedule/[username]/ScheduleForm'
 import { Avatar, Text } from '@rafaumeu-ignite-ui/react'
 import { Heading } from '@rafaumeu-ignite-ui/react'
 import type { GetStaticPaths, GetStaticProps } from 'next'
-import { Container, UserHeader } from './styles'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { Container, UserHeader } from './styles'
 
 interface ScheduleProps {
   user: {

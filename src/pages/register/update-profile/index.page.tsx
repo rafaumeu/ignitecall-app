@@ -15,11 +15,11 @@ import { Avatar } from '@rafaumeu-ignite-ui/react'
 import type { GetServerSideProps } from 'next'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { NextSeo } from 'next-seo'
 
 const updateFormSchema = z.object({
   bio: z.string(),

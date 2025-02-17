@@ -2,10 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Text, TextInput } from '@rafaumeu-ignite-ui/react'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
+import type { ComponentProps } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Form, FormAnnotation } from './styles'
-import type { ComponentProps } from 'react'
 
 const claimUsernameFormSchema = z.object({
   username: z

@@ -1,9 +1,9 @@
-import { Button, Heading, MultiStep, Text } from '@rafaumeu-ignite-ui/react'
 import { Container, Header } from '@/pages/register/style'
-import { ArrowRight, Check } from 'phosphor-react'
+import { Button, Heading, MultiStep, Text } from '@rafaumeu-ignite-ui/react'
 import { signIn, useSession } from 'next-auth/react'
 import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
+import { ArrowRight, Check } from 'phosphor-react'
 import { z } from 'zod'
 import { AuthError, ConnectBox, ConnectItem } from './style'
 

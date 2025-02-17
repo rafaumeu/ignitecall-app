@@ -31,7 +31,12 @@
   },
   "files": {
     "ignore": [
-      "node_modules"
+      "node_modules",
+      "dist",
+      "build",
+      "public",
+      "src/migrations",
+      "./.next/"
     ]
   }
 }
