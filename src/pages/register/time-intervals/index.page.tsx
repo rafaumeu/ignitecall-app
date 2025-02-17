@@ -96,12 +96,13 @@ export default function TimeIntervals() {
   const intervals = watch('intervals')
   const weekDays = getWeekDays({ short: true })
   const router = useRouter()
-  async function handleSetTimeIntervals(data: TimeIntervalsFormData) {
-    const { intervals } = data as TimeIntervalsFormOutput
-
+  async function handleSetTimeIntervals(data: TimeIntervalsFormInput) {
+    const formData = timeIntervalsFormSchema.parse(data)
+    
     await api.post('/users/time-intervals', {
-      intervals,
+      intervals: formData.intervals,
     })
+    
     await router.push('/register/update-profile')
   }
   return (
