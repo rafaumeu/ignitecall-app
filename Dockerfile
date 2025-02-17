@@ -1,31 +1,21 @@
-FROM node:20-alpine AS deps
-WORKDIR /app
+FROM node:22-slim
+
+WORKDIR /usr/src/app
+
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
-COPY prisma ./prisma
-RUN yarn install
-RUN yarn prisma generate
+COPY .env ./
+COPY .env.production ./
+COPY prisma ./prisma/  
 
-FROM node:20-alpine AS builder
-WORKDIR /app
+RUN apt-get update -y && apt-get install -y openssl
+
+RUN yarn
+
 COPY . .
-COPY --from=deps /app/node_modules ./node_modules
+
 RUN yarn build
 
-FROM node:20-alpine AS runner
-WORKDIR /app
-ENV NODE_ENV production
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-COPY --from=deps /app/prisma ./prisma
-
-USER nextjs
-
 EXPOSE 3000
-ENV PORT 3000
 
-CMD ["node", "server.js"]
+CMD ["yarn", "start"]
