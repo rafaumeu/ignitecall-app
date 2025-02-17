@@ -8,12 +8,13 @@ import { api } from '@/lib/axios'
 import { Header } from '@/pages/register/style'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AxiosError } from 'axios'
+import { NextSeo } from 'next-seo'
 import { useRouter } from 'next/router'
 import { ArrowRight } from 'phosphor-react'
 import { type ComponentProps, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { NextSeo } from 'next-seo'
+
 type TextInputProps = ComponentProps<typeof TextInput>
 
 const registerFormSchema = z.object({

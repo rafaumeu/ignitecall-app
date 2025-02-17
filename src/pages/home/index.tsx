@@ -13,8 +13,9 @@ export default function Home() {
         title="Descomplique sua agenda | Ignite Call"
         description="Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre."
         openGraph={{
-          title: "Descomplique sua agenda | Ignite Call",
-          description: "Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.",
+          title: 'Descomplique sua agenda | Ignite Call',
+          description:
+            'Conecte seu calendário e permita que as pessoas marquem agendamentos no seu tempo livre.',
           images: [
             {
               url: previewImage.src,
