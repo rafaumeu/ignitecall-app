@@ -1,0 +1,50 @@
+# Frontend
+components:
+  - "src/components/**/*"
+  - "**/components/*"
+
+pages:
+  - "src/pages/**/*"
+  - "**/pages/*"
+
+styles:
+  - "src/styles/**/*"
+  - "**/styles.ts"
+  - "**/style.ts"
+
+# Backend
+api:
+  - "src/pages/api/**/*"
+  - "**/api/*"
+
+database:
+  - "prisma/**/*"
+  - "**/prisma/*"
+  - "**/schema.prisma"
+
+# Core
+lib:
+  - "src/lib/**/*"
+  - "**/lib/*"
+
+utils:
+  - "src/utils/**/*"
+  - "**/utils/*"
+
+# Config
+setup:
+  - "**/package.json"
+  - "**/tsconfig.json"
+  - "**/biome.json"
+  - "**/.env.example"
+  - "**/docker-compose.yml"
+
+tests:
+  - "**/*.spec.ts"
+  - "**/*.test.ts"
+  - "**/__tests__/*"
+
+documentation:
+  - "**/*.md"
+  - "**/docs/*"
+  - "**/README.md"
