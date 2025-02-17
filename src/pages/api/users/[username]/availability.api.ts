@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).end()
@@ -39,7 +39,7 @@ export default async function handle(
   const possibleTimes = Array.from({ length: endHour - startHour }).map(
     (_, i) => {
       return startHour + i
-    }
+    },
   )
   const blockedTimes = await prisma.scheduling.findMany({
     select: {
@@ -54,9 +54,9 @@ export default async function handle(
     },
   })
 
-  const availableTimes = possibleTimes.filter(time => {
+  const availableTimes = possibleTimes.filter((time) => {
     const isTimeBlocked = blockedTimes.some(
-      blockedTime => blockedTime.date.getHours() === time
+      (blockedTime) => blockedTime.date.getHours() === time,
     )
     const isTimeInPast = referenceDate.set('hour', time).isBefore(new Date())
     return !isTimeBlocked && !isTimeInPast

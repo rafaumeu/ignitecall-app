@@ -49,7 +49,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
             year: currentDate.get('year'),
             month: currentDate.get('month') + 1,
           },
-        }
+        },
       )
       return response.data
     },
@@ -81,7 +81,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       .reverse()
     const lastDayInCurrentMonth = currentDate.set(
       'date',
-      currentDate.daysInMonth()
+      currentDate.daysInMonth(),
     )
     const lastWeekDay = lastDayInCurrentMonth.get('day')
 
@@ -91,10 +91,10 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       return lastDayInCurrentMonth.add(i + 1, 'day')
     })
     const calendarDays = [
-      ...previousMonthFillArray.map(date => {
+      ...previousMonthFillArray.map((date) => {
         return { date, disabled: true }
       }),
-      ...daysInMonthArray.map(date => {
+      ...daysInMonthArray.map((date) => {
         return {
           date,
           disabled:
@@ -103,7 +103,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
             blockedDates.blockedDates.includes(date.get('date')),
         }
       }),
-      ...nextMonthFillArray.map(date => {
+      ...nextMonthFillArray.map((date) => {
         return { date, disabled: true }
       }),
     ]
@@ -118,7 +118,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
         }
         return weeks
       },
-      []
+      [],
     )
     return calendarWeeks
   }, [currentDate, blockedDates])
@@ -144,7 +144,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
       <CalendarBody>
         <thead>
           <tr>
-            {shortWeekDays.map(weekDay => (
+            {shortWeekDays.map((weekDay) => (
               <th key={weekDay}>{weekDay}.</th>
             ))}
           </tr>

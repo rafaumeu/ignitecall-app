@@ -14,7 +14,7 @@ const claimUsernameFormSchema = z.object({
     .regex(/^([a-z\\-])+$/i, {
       message: 'O usuário deve ter apenas letras e hifens',
     })
-    .transform(username => username.toLowerCase()),
+    .transform((username) => username.toLowerCase()),
 })
 type TextInputProps = ComponentProps<typeof TextInput>
 

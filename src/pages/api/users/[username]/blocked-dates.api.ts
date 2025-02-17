@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import type { NextApiRequest, NextApiResponse } from 'next'
 export default async function handle(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (req.method !== 'GET') {
     return res.status(405).end()
@@ -29,9 +29,9 @@ export default async function handle(
   })
   const padMonth = String(month).padStart(2, '0')
 
-  const blockedWeekDays = [0, 1, 2, 3, 4, 5, 6].filter(weekDay => {
+  const blockedWeekDays = [0, 1, 2, 3, 4, 5, 6].filter((weekDay) => {
     return !availableWeekDays.some(
-      availableWeekDay => availableWeekDay.week_day === weekDay
+      (availableWeekDay) => availableWeekDay.week_day === weekDay,
     )
   })
   const blockedDatesRaw: Array<{ date: number }> = await prisma.$queryRaw`
@@ -76,7 +76,7 @@ export default async function handle(
     }
   }
   const blockedDates = [
-    ...blockedDatesRaw.map(item => Number(item.date)),
+    ...blockedDatesRaw.map((item) => Number(item.date)),
     ...(todayBlockedTime ? [today.get('date')] : []),
   ]
   return res.json({ blockedWeekDays, blockedDates })

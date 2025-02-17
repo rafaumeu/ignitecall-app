@@ -35,17 +35,17 @@ const timeIntervalsFormSchema = z.object({
         enabled: z.boolean(),
         startTime: z.string(),
         endTime: z.string(),
-      })
+      }),
     )
     .length(7)
-    .transform(intervals => {
-      return intervals.filter(interval => interval.enabled)
+    .transform((intervals) => {
+      return intervals.filter((interval) => interval.enabled)
     })
-    .refine(intervals => intervals.length > 0, {
+    .refine((intervals) => intervals.length > 0, {
       message: 'Você precisa selecionar pelo menos um dia da semana',
     })
-    .transform(intervals => {
-      return intervals.map(interval => {
+    .transform((intervals) => {
+      return intervals.map((interval) => {
         return {
           weekDay: interval.weekDay,
           startTimeInMinutes: convertTimeStringToMinutes(interval.startTime),
@@ -54,16 +54,16 @@ const timeIntervalsFormSchema = z.object({
       })
     })
     .refine(
-      intervals => {
+      (intervals) => {
         return intervals.every(
-          interval =>
-            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes
+          (interval) =>
+            interval.endTimeInMinutes - 60 >= interval.startTimeInMinutes,
         )
       },
       {
         message:
           'O horário de termino deve ser pelo menos 1 hora distante do início',
-      }
+      },
     ),
 })
 type TimeIntervalsFormInput = z.input<typeof timeIntervalsFormSchema>
@@ -129,7 +129,7 @@ export default function TimeIntervals() {
                       render={({ field }) => {
                         return (
                           <CheckBox
-                            onCheckedChange={checked =>
+                            onCheckedChange={(checked) =>
                               field.onChange(!!checked)
                             }
                             checked={!!field.value}
@@ -146,7 +146,7 @@ export default function TimeIntervals() {
                       step={60}
                       disabled={!intervals[index].enabled}
                       {...(register(
-                        `intervals.${index}.startTime`
+                        `intervals.${index}.startTime`,
                       ) as TextInputProps)}
                     />
                     <TextInput
@@ -155,7 +155,7 @@ export default function TimeIntervals() {
                       step={60}
                       disabled={!intervals[index].enabled}
                       {...(register(
-                        `intervals.${index}.endTime`
+                        `intervals.${index}.endTime`,
                       ) as TextInputProps)}
                     />
                   </IntervalInputs>

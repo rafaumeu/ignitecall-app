@@ -22,12 +22,12 @@ const ImageComponent = ({ username }: { username: string }) => (
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { username } = req.query
 
   const image = new ImageResponse(
-    <ImageComponent username={username as string} />
+    <ImageComponent username={username as string} />,
   )
 
   return image
