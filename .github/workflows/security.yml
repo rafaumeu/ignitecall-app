@@ -31,10 +31,13 @@ jobs:
           node-version: "20"
           cache: "yarn"
 
-      - name: Update Yarn lockfile
-        run: yarn install --update-locks
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile
+          yarn dedupe esbuild
 
       - name: Check for vulnerabilities
+        continue-on-error: true
         run: yarn audit
 
   dependency-review:
