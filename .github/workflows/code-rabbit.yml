@@ -1,0 +1,39 @@
+---
+name: CodeRabbit Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+  pull_request_review_comment:
+    types: [created]
+
+jobs:
+  review:
+    name: AI Code Review
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: CodeRabbit Review
+        uses: coderabbitai/ai-pr-reviewer@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        with:
+          debug: false
+          review_simple_changes: false
+          review_comment_lgtm: false
+          path_filters: |
+            !.next/**
+            !node_modules/**
+            !public/**
+            !**/*.lock
+          path_instructions:
+            "src/**/*.ts": "Verifique a tipagem TypeScript, type safety e padrões do projeto."
+            "src/**/*.tsx": "Verifique os padrões React, hooks, performance e acessibilidade."
+            "src/pages/api/**": "Verifique a segurança e validação das APIs."
+            "prisma/**": "Verifique o schema e migrações do banco de dados."
+            ".github/**": "Verifique as configurações de CI/CD e GitHub Actions."
+            "src/styles/**": "Verifique a consistência com o design system @rafaumeu-ignite-ui/react."

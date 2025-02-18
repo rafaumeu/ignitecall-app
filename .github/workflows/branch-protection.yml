@@ -1,0 +1,24 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  protection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check Required Reviews
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+            if (pr.reviews.length < 1) {
+              core.setFailed('At least one review is required');
+            }
