@@ -8,18 +8,27 @@
 
 ## Reportando Vulnerabilidades
 
-Para reportar vulnerabilidades de segurança:
+1. **Não crie uma Issue pública**
+2. Envie um email para <security@rafaumeu.dev>
+3. Inclua detalhes como:
+   - Descrição da vulnerabilidade
+   - Passos para reproduzir
+   - Possível impacto
+   - Sugestões de mitigação
 
-1. Vá para a aba "Security" do repositório
-2. Clique em "Report a vulnerability"
-3. Descreva a vulnerabilidade detalhadamente
+## Processo de Resposta
 
-Nossa equipe irá:
+1. Confirmação em 24h
+2. Avaliação em 72h
+3. Correção e release em até 7 dias
+4. Divulgação pública após patch
 
-- Confirmar o recebimento em 24h
-- Investigar e validar o report
-- Corrigir vulnerabilidades confirmadas
-- Notificar sobre o status da correção
+## Escopo
+
+- Aplicação Next.js
+- APIs do Google Calendar/Meet
+- Autenticação OAuth
+- Banco de dados PostgreSQL
 
 ## Práticas de Segurança
 
