@@ -30,8 +30,8 @@ jobs:
           node-version: "20"
           cache: "yarn"
       - run: yarn install
-      - run: yarn lint
-      - run: yarn format:check
+      - run: yarn biome check . --apply
+      - run: yarn biome format . --write
 
   super-lint:
     name: Super Linter
