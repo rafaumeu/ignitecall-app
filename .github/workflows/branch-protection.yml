@@ -19,6 +19,13 @@ jobs:
               repo: context.repo.repo,
               pull_number: context.issue.number,
             });
-            if (pr.reviews.length < 1) {
+
+            const { data: reviews } = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            if (reviews.length < 1) {
               core.setFailed('At least one review is required');
             }
