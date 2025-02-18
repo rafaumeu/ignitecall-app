@@ -31,8 +31,8 @@ jobs:
           node-version: "20"
           cache: "yarn"
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
+      - name: Update Yarn lockfile
+        run: yarn install --update-locks
 
       - name: Check for vulnerabilities
         run: yarn audit
