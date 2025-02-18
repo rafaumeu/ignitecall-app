@@ -2043,13 +2043,13 @@ __metadata:
     axios: ^1.7.9
     dayjs: ^1.11.13
     dotenv: ^16.4.7
-    esbuild: latest
+    esbuild: ^0.25.0
     googleapis: ^144.0.0
     jsdom: ^24.0.0
     next: 15.1.6
     next-auth: ^4.24.11
     next-seo: ^6.6.0
-    nookies: ^2.5.2
+    nookies: latest
     phosphor-react: ^1.4.1
     prisma: ^6.3.0
     react: ^19.0.0
@@ -2840,7 +2840,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:latest":
+"esbuild@npm:^0.25.0":
   version: 0.25.0
   resolution: "esbuild@npm:0.25.0"
   dependencies:
@@ -4221,7 +4221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nookies@npm:^2.5.2":
+"nookies@npm:latest":
   version: 2.5.2
   resolution: "nookies@npm:2.5.2"
   dependencies:
