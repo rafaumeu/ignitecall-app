@@ -10,6 +10,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 [![Ignite UI](https://img.shields.io/badge/Ignite_UI-Latest-00875F.svg)](https://github.com/rocketseat/ignite-ui)
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-Latest-000000.svg)](https://next-auth.js.org/)
 [![Google API](https://img.shields.io/badge/Google_APIs-4285F4.svg)](https://developers.google.com/apis)
+[![Codecov](https://img.shields.io/codecov/c/github/rafaumeu/ignite-call)](https://codecov.io/gh/rafaumeu/ignite-call)
 
 ---
 
