@@ -30,10 +30,10 @@ jobs:
             !node_modules/**
             !public/**
             !**/*.lock
-          path_instructions:
-            "src/**/*.ts": "Verifique a tipagem TypeScript, type safety e padrões do projeto."
-            "src/**/*.tsx": "Verifique os padrões React, hooks, performance e acessibilidade."
-            "src/pages/api/**": "Verifique a segurança e validação das APIs."
-            "prisma/**": "Verifique o schema e migrações do banco de dados."
-            ".github/**": "Verifique as configurações de CI/CD e GitHub Actions."
-            "src/styles/**": "Verifique a consistência com o design system @rafaumeu-ignite-ui/react."
+          path_instructions: |
+            src/**/*.ts: Verifique a tipagem TypeScript, type safety e padrões do projeto.
+            src/**/*.tsx: Verifique os padrões React, hooks, performance e acessibilidade.
+            src/pages/api/**: Verifique a segurança e validação das APIs.
+            prisma/**: Verifique o schema e migrações do banco de dados.
+            .github/**: Verifique as configurações de CI/CD e GitHub Actions.
+            src/styles/**: Verifique a consistência com o design system @rafaumeu-ignite-ui/react.
