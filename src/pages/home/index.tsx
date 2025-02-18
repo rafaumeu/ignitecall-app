@@ -38,6 +38,7 @@ export default function Home() {
           <Image
             src={previewImage}
             height={400}
+            width={800}
             quality={100}
             alt="Calendário simbolizando a aplicação em funcionamento"
             priority
