@@ -10,6 +10,9 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 [![Ignite UI](https://img.shields.io/badge/Ignite_UI-Latest-00875F.svg)](https://github.com/rocketseat/ignite-ui)
 [![NextAuth.js](https://img.shields.io/badge/NextAuth.js-Latest-000000.svg)](https://next-auth.js.org/)
 [![Google API](https://img.shields.io/badge/Google_APIs-4285F4.svg)](https://developers.google.com/apis)
+[![Codecov](https://img.shields.io/codecov/c/github/rafaumeu/ignitecall-app)](https://codecov.io/gh/rafaumeu/ignitecall-app)
+[![Coverage](https://codecov.io/gh/rafaumeu/ignitecall-app/branch/main/graph/badge.svg)](https://codecov.io/gh/rafaumeu/ignitecall-app)
+[![CI](https://github.com/rafaumeu/ignitecall-app/actions/workflows/ci.yml/badge.svg)](https://github.com/rafaumeu/ignitecall-app/actions/workflows/ci.yml)
 
 ---
 
@@ -134,7 +137,7 @@ Our CI pipeline automatically runs on every push and pull request:
 - `project-automation.yml`: Project board automation
 - `labeler.yml`: PR labeling automation
 
-To view the workflow runs, visit the [Actions tab](https://github.com/rafaumeu/ignite-call/actions) in the repository.
+To view the workflow runs, visit the [Actions tab](https://github.com/rafaumeu/ignitecall-app/actions) in the repository.
 
 ---
 
@@ -151,8 +154,8 @@ To view the workflow runs, visit the [Actions tab](https://github.com/rafaumeu/i
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ignite-call.git
-cd ignite-call
+git clone https://github.com/yourusername/ignitecall-app.git
+cd ignitecall-app
 ```
 
 2. Install dependencies:
@@ -253,7 +256,7 @@ NEXTAUTH_URL="http://localhost:3000"
 ## 🏗️ Project Structure
 
 ```bash
-ignite-call/
+ignitecall-app/
 ├── src/
 │   ├── @types/
 │   │   └── next-auth.d.ts
