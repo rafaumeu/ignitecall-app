@@ -12,7 +12,7 @@
     "format:check": "biome format .",
     "postinstall": "prisma generate",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
