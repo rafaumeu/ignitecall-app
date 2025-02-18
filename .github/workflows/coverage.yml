@@ -20,9 +20,7 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: |
-          yarn install
-          yarn dedupe
+        run: yarn install
 
       - name: Run tests with coverage
         run: yarn test:coverage
