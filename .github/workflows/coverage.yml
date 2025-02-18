@@ -20,11 +20,12 @@ jobs:
           cache: "yarn"
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run tests with coverage and JUnit report
         run: |
-          yarn vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml
+          yarn install
+          yarn dedupe
+
+      - name: Run tests with coverage
+        run: yarn test:coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

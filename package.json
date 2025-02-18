@@ -54,6 +54,8 @@
   "packageManager": "yarn@1.22.22",
   "resolutions": {
     "esbuild": "^0.25.0",
-    "vite": "^5.0.0"
+    "vite": "^5.0.0",
+    "glob": "^9.0.0",
+    "test-exclude": "^7.0.0"
   }
 }
