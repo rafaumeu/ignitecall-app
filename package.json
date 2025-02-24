@@ -15,7 +15,7 @@
     "test:coverage": "vitest run --coverage --reporter=junit --outputFile=test-report.junit.xml"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.10.0",
+    "@hookform/resolvers": "^4.1.2",
     "@prisma/client": "^6.3.0",
     "@rafaumeu-ignite-ui/react": "latest",
     "@tanstack/react-query": "^5.65.1",
