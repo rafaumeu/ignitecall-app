@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import { DefaultSeo } from 'next-seo'
 import type { AppProps } from 'next/app'
+import { Analytics } from '@vercel/analytics/react'
 
 globalStyles()
 
@@ -20,6 +21,7 @@ export default function App({
           description="A plataforma de agendamento descomplicada."
         />
         <Component {...pageProps} />
+        <Analytics />
       </SessionProvider>
     </QueryClientProvider>
   )

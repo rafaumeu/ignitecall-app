@@ -19,12 +19,13 @@
     "@prisma/client": "^6.3.0",
     "@rafaumeu-ignite-ui/react": "latest",
     "@tanstack/react-query": "^5.65.1",
+    "@vercel/analytics": "^2.0.1",
     "@vercel/og": "^0.6.5",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
-    "googleapis": "^144.0.0",
+    "googleapis": "^171.4.0",
     "next": "15.5.15",
-    "next-auth": "^4.24.11",
+    "next-auth": "^4.24.14",
     "next-seo": "^6.6.0",
     "nookies": "^2.5.2",
     "phosphor-react": "^1.4.1",
@@ -54,8 +55,10 @@
   "packageManager": "yarn@1.22.22",
   "resolutions": {
     "esbuild": "^0.25.0",
-    "vite": "^5.0.0",
+    "vite": "^8.0.0",
     "glob": "^9.0.0",
-    "test-exclude": "^7.0.0"
+    "test-exclude": "^7.0.0",
+    "cookie": "^0.7.0",
+    "uuid": "^14.0.0"
   }
 }
