@@ -14,6 +14,8 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 [![Coverage](https://codecov.io/gh/rafaumeu/ignitecall-app/branch/main/graph/badge.svg)](https://codecov.io/gh/rafaumeu/ignitecall-app)
 [![CI](https://github.com/rafaumeu/ignitecall-app/actions/workflows/ci.yml/badge.svg)](https://github.com/rafaumeu/ignitecall-app/actions/workflows/ci.yml)
 
+**🌐 [Live Demo](https://ignitecall-app.vercel.app)** • **📸 [Screenshots](#-screenshots)**
+
 ---
 
 ## 📖 Table of Contents
@@ -25,6 +27,14 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 
 ---
 </div>
+
+## 📸 Screenshots
+
+<!-- Add screenshots of: scheduling interface, calendar view, profile page, time interval configuration -->
+
+| Scheduling | Calendar | Profile |
+|:---:|:---:|:---:|
+| *Scheduling form with date/time selection* | *Interactive calendar with availability* | *User profile with bio* |
 
 ## 🚀 Features
 
@@ -154,7 +164,7 @@ To view the workflow runs, visit the [Actions tab](https://github.com/rafaumeu/i
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/ignitecall-app.git
+git clone https://github.com/rafaumeu/ignitecall-app.git
 cd ignitecall-app
 ```
 
