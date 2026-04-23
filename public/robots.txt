@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ignitecall-app.vercel.app/sitemap.xml

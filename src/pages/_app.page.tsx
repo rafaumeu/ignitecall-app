@@ -17,8 +17,23 @@ export default function App({
     <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>
         <DefaultSeo
-          titleTemplate="Ignite Call | %s"
-          description="A plataforma de agendamento descomplicada."
+          titleTemplate="IgniteCall | %s"
+          defaultTitle="IgniteCall — Agendamento Online"
+          description="Plataforma de agendamento com Google Calendar OAuth, Design System e CI/CD. Agende reuniões de forma descomplicada."
+          canonical="https://ignitecall-app.vercel.app"
+          openGraph={{
+            type: 'website',
+            locale: 'pt_BR',
+            url: 'https://ignitecall-app.vercel.app',
+            siteName: 'IgniteCall',
+            title: 'IgniteCall — Agendamento Online',
+            description: 'Plataforma de agendamento com Google Calendar OAuth e Design System.',
+          }}
+          twitter={{
+            cardType: 'summary_large_image',
+            title: 'IgniteCall — Agendamento Online',
+            description: 'Plataforma de agendamento com Google Calendar OAuth e Design System.',
+          }}
         />
         <Component {...pageProps} />
         <Analytics />
