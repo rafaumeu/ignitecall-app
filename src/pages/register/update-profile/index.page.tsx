@@ -1,8 +1,20 @@
-import { Button, TextArea, TextInput } from '@rafaumeu-ignite-ui/react'
-import { MultiStep } from '@rafaumeu-ignite-ui/react'
-import { Text } from '@rafaumeu-ignite-ui/react'
-import { Heading } from '@rafaumeu-ignite-ui/react'
-
+import { zodResolver } from '@hookform/resolvers/zod'
+import {
+  Avatar,
+  Button,
+  Heading,
+  MultiStep,
+  Text,
+  TextArea,
+} from '@rafaumeu-ignite-ui/react'
+import type { GetServerSideProps } from 'next'
+import { useRouter } from 'next/router'
+import { getServerSession } from 'next-auth'
+import { useSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
+import { ArrowRight, ChartBar } from 'phosphor-react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 import { api } from '@/lib/axios'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import { Container, Header } from '@/pages/register/style'
@@ -10,16 +22,6 @@ import {
   FormAnnotation,
   ProfileBox,
 } from '@/pages/register/update-profile/styles'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Avatar } from '@rafaumeu-ignite-ui/react'
-import type { GetServerSideProps } from 'next'
-import { getServerSession } from 'next-auth'
-import { useSession } from 'next-auth/react'
-import { NextSeo } from 'next-seo'
-import { useRouter } from 'next/router'
-import { ArrowRight } from 'phosphor-react'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 const updateFormSchema = z.object({
   bio: z.string(),
@@ -74,6 +76,14 @@ export default function UpdateProfile() {
           <Button type="submit" disabled={isSubmitting}>
             Finalizar
             <ArrowRight />
+          </Button>
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => router.push('/register/dashboard')}
+          >
+            <ChartBar />
+            View Booking Analytics
           </Button>
         </ProfileBox>
       </Container>
