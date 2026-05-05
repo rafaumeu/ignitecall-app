@@ -23,7 +23,7 @@ A modern scheduling system built with Next.js and TypeScript, featuring Google C
 ---
 
 <p align="center">
-  [![Use this template](https://img.shields.io/badge/Use_This_Template-FF0080?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rafaumeu/ignitecall-app/generate)
+  [![Use this template](https://img.shields.io/badge/Use_This_Template-FFCA28?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rafaumeu/ignitecall-app/generate)
 </p>
 
 
