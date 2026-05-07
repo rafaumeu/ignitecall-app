@@ -31,8 +31,6 @@ export default function App({
           }}
           twitter={{
             cardType: 'summary_large_image',
-            title: 'IgniteCall — Agendamento Online',
-            description: 'Plataforma de agendamento com Google Calendar OAuth e Design System.',
           }}
         />
         <Component {...pageProps} />
