@@ -311,9 +311,27 @@ ignitecall-app/
 
 To be documented based on project implementation.
 
-## 📚 Documentation
+## 📚 API Documentation
 
-To be added based on project implementation.
+Interactive Swagger UI available at `/docs` when running the server.
+
+### Endpoints
+
+| Method | Route | Description |
+|---|---|---|
+| `POST` | `/api/users` | Create a new user |
+| `PUT` | `/api/users/profile` | Update authenticated user's bio |
+| `GET` | `/api/users/metrics` | Get scheduling metrics for authenticated user |
+| `POST` | `/api/users/time-intervals` | Set weekly availability time intervals |
+| `GET` | `/api/users/{username}/availability` | Get available time slots for a date |
+| `POST` | `/api/users/{username}/schedule` | Book a scheduling slot |
+| `GET` | `/api/users/{username}/blocked-dates` | Get blocked dates for a month |
+
+### Generate Typed Client
+
+```bash
+yarn generate:client
+```
 
 ## 🛡️ License
 
