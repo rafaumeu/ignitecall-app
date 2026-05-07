@@ -5,6 +5,11 @@
 # ⏰ Ignite Call
 
 <div align="center">
+  <img src="./docs/screenshot.png" alt="Ignite Call Screenshot" width="100%" />
+</div>
+
+
+<div align="center">
 
 A modern scheduling system built with Next.js and TypeScript, featuring Google Calendar integration, Google Meet automation, and advanced scheduling capabilities.
 
