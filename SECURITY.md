@@ -1,38 +1,22 @@
-# Política de Segurança
+# Security Policy
 
-## Versões Suportadas
+## Supported Versions
 
-| Versão | Suportada          |
+| Version | Supported          |
 | ------- | ------------------ |
-| 0.1.x   | :white_check_mark: |
+| 2.x     | :white_check_mark: |
+| < 2.0   | :x:                |
 
-## Reportando Vulnerabilidades
+## Reporting a Vulnerability
 
-1. **Não crie uma Issue pública**
-2. Envie um email para <security@rafaumeu.dev>
-3. Inclua detalhes como:
-   - Descrição da vulnerabilidade
-   - Passos para reproduzir
-   - Possível impacto
-   - Sugestões de mitigação
+If you discover a security vulnerability in this project, please open a [GitHub Security Advisory](https://github.com/rafaumeu/ignitecall-app/security/advisories/new).
 
-## Processo de Resposta
+Please do not disclose security vulnerabilities publicly until a fix has been released.
 
-1. Confirmação em 24h
-2. Avaliação em 72h
-3. Correção e release em até 7 dias
-4. Divulgação pública após patch
+## Security Features
 
-## Escopo
-
-- Aplicação Next.js
-- APIs do Google Calendar/Meet
-- Autenticação OAuth
-- Banco de dados PostgreSQL
-
-## Práticas de Segurança
-
-- Todas as dependências são verificadas pelo Dependabot
-- Análise de código automática via CodeQL
-- Verificação de secrets via secret scanning
-- Review de dependências em PRs
+- [Semgrep](https://semgrep.dev/) static analysis on every PR
+- [CodeQL](https://codeql.github.com/) security scanning weekly
+- [Gitleaks](https://gitleaks.io/) secret detection on every push
+- Dependabot automated dependency updates
+- Branch protection with required CI checks

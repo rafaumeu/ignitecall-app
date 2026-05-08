@@ -1,6 +1,6 @@
 version: 2
 updates:
-  - package-ecosystem: npm
+  - package-ecosystem: yarn
     directory: /
     schedule:
       interval: weekly
@@ -8,15 +8,16 @@ updates:
     open-pull-requests-limit: 5
     labels:
       - dependencies
-    commit-message:
-      prefix: chore
-      include: scope
-
+      - dependabot
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - version-update:semver-major
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
+      day: monday
     labels:
       - dependencies
-    commit-message:
-      prefix: ci
+      - github-actions
