@@ -2,7 +2,7 @@
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=FFCA28&height=180&section=header&text=Ignite%20Call&fontSize=42&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Scheduling%20Platform%20with%20Google%20Calendar&descSize=18&descAlignY=52"/>
 </div>
 
-# ⏰ Ignite Call
+## Overview
 
 <div align="center">
   <img src="./docs/screenshot.png" alt="Ignite Call Screenshot" width="100%" />
