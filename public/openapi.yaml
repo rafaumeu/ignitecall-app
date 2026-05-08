@@ -1,0 +1,501 @@
+openapi: "3.0.3"
+info:
+  title: Ignite Call API
+  description: >
+    Scheduling and availability API for Ignite Call — a Next.js Pages Router
+    application with Google Calendar integration.
+  version: "1.0.0"
+servers:
+  - url: http://localhost:3000
+    description: Local development
+tags:
+  - name: Users
+    description: User registration and management
+  - name: Profile
+    description: Authenticated user profile and metrics
+  - name: Scheduling
+    description: Availability, booking, and calendar operations
+paths:
+  /api/users:
+    post:
+      tags: [Users]
+      summary: Register a new user
+      description: Creates a new user with the given name and username. Sets a cookie with the user ID.
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateUserRequest"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Username already taken
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+    get:
+      tags: [Users]
+      summary: Find user by email
+      description: Looks up a user by their email address (query parameter). Requires authentication.
+      operationId: getUserByEmail
+      security:
+        - cookieAuth: []
+      parameters:
+        - name: email
+          in: query
+          required: true
+          description: The user's email address
+          schema:
+            type: string
+            format: email
+            example: john@example.com
+      responses:
+        "200":
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+  /api/users/profile:
+    get:
+      tags: [Profile]
+      summary: Get logged-in user profile
+      description: Returns the authenticated user's profile information including name, bio, and avatar.
+      operationId: getProfile
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+    put:
+      tags: [Profile]
+      summary: Update user profile bio
+      description: Updates the authenticated user's bio. Requires an active next-auth session.
+      operationId: updateProfile
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateProfileRequest"
+      responses:
+        "204":
+          description: Profile updated successfully (no content)
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+  /api/users/metrics:
+    get:
+      tags: [Profile]
+      summary: Get booking metrics
+      description: >
+        Returns scheduling metrics for the authenticated user including total
+        bookings, breakdowns by day of week and hour, and busiest times.
+      operationId: getMetrics
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Metrics retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MetricsResponse"
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+  /api/users/time-intervals:
+    get:
+      tags: [Profile]
+      summary: Get user time intervals
+      description: Returns the configured weekly time intervals for the authenticated user.
+      operationId: getTimeIntervals
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Time intervals retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetTimeIntervalsResponse"
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+    post:
+      tags: [Profile]
+      summary: Set available time intervals
+      description: >
+        Creates time intervals for the authenticated user's weekly availability.
+        Each interval specifies a week day, start time, and end time in minutes
+        from midnight.
+      operationId: setTimeIntervals
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SetTimeIntervalsRequest"
+      responses:
+        "201":
+          description: Time intervals created successfully (no content)
+        "401":
+          description: Unauthorized — no active session
+        "405":
+          description: Method not allowed
+  /api/users/{username}/availability:
+    get:
+      tags: [Scheduling]
+      summary: Get available time slots for a date
+      description: >
+        Returns the possible and available time slots for a given user on a
+        specific date. A date query parameter is required.
+      operationId: getAvailability
+      parameters:
+        - $ref: "#/components/parameters/username"
+        - name: date
+          in: query
+          required: true
+          description: The reference date (YYYY-MM-DD format)
+          schema:
+            type: string
+            example: "2026-05-10"
+      responses:
+        "200":
+          description: Availability retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AvailabilityResponse"
+        "400":
+          description: Date not provided or user does not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /api/users/{username}/schedule:
+    post:
+      tags: [Scheduling]
+      summary: Create a scheduling booking
+      description: >
+        Books a scheduling slot for a user. Validates the date, checks for
+        conflicts, creates the booking in the database, and adds a Google
+        Calendar event with a Meet link.
+      operationId: createSchedule
+      parameters:
+        - $ref: "#/components/parameters/username"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateScheduleRequest"
+      responses:
+        "201":
+          description: Scheduling created successfully (no content)
+        "400":
+          description: User does not exist, date is in the past, or time conflict
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+  /api/users/{username}/blocked-dates:
+    get:
+      tags: [Scheduling]
+      summary: Get blocked dates for a month
+      description: >
+        Returns the days of the week that are blocked (no availability) and
+        specific dates that are fully booked for the given month.
+      operationId: getBlockedDates
+      parameters:
+        - $ref: "#/components/parameters/username"
+        - name: year
+          in: query
+          required: true
+          description: The year
+          schema:
+            type: integer
+            example: 2026
+        - name: month
+          in: query
+          required: true
+          description: The month (1-12)
+          schema:
+            type: integer
+            example: 5
+      responses:
+        "200":
+          description: Blocked dates retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlockedDatesResponse"
+        "400":
+          description: Year/month not specified or user does not exist
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "405":
+          description: Method not allowed
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: next-auth.session-token
+      description: >
+        NextAuth.js session cookie. Authentication is handled automatically by
+        the browser for same-origin requests.
+  parameters:
+    username:
+      name: username
+      in: path
+      required: true
+      description: "The user's unique username"
+      schema:
+        type: string
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+          example: "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+        username:
+          type: string
+          example: johndoe
+        name:
+          type: string
+          example: John Doe
+        bio:
+          type: string
+          nullable: true
+          example: Full-stack developer
+        email:
+          type: string
+          nullable: true
+          format: email
+          example: john@example.com
+        avatar_url:
+          type: string
+          nullable: true
+          format: uri
+        created_at:
+          type: string
+          format: date-time
+      required: [id, username, name, created_at]
+    CreateUserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: John Doe
+        username:
+          type: string
+          example: johndoe
+      required: [name, username]
+    UpdateProfileRequest:
+      type: object
+      properties:
+        bio:
+          type: string
+          example: "Software engineer passionate about clean code."
+      required: [bio]
+    MetricsResponse:
+      type: object
+      properties:
+        totalBookings:
+          type: integer
+          example: 42
+        bookingsByDayOfWeek:
+          type: array
+          items:
+            $ref: "#/components/schemas/DayOfWeekCount"
+        bookingsByHour:
+          type: array
+          items:
+            $ref: "#/components/schemas/HourCount"
+        busiestDay:
+          $ref: "#/components/schemas/DayOfWeekCount"
+          nullable: true
+        busiestHour:
+          $ref: "#/components/schemas/HourCount"
+          nullable: true
+      required: [totalBookings, bookingsByDayOfWeek, bookingsByHour, busiestDay, busiestHour]
+    DayOfWeekCount:
+      type: object
+      properties:
+        day:
+          type: integer
+          description: "0=Sunday, 1=Monday, ..., 6=Saturday"
+          example: 1
+        dayLabel:
+          type: string
+          example: Mon
+        count:
+          type: integer
+          example: 12
+      required: [day, dayLabel, count]
+    HourCount:
+      type: object
+      properties:
+        hour:
+          type: integer
+          description: "Hour of day (0-23)"
+          example: 14
+        count:
+          type: integer
+          example: 5
+      required: [hour, count]
+    GetTimeIntervalsResponse:
+      type: object
+      properties:
+        intervals:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimeIntervalResponse"
+      required: [intervals]
+    TimeIntervalResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID
+        week_day:
+          type: integer
+          description: "0=Sunday, 1=Monday, ..., 6=Saturday"
+          example: 1
+        time_start_in_minutes:
+          type: integer
+          description: Start time in minutes from midnight
+          example: 480
+        time_end_in_minutes:
+          type: integer
+          description: End time in minutes from midnight
+          example: 1080
+      required: [id, week_day, time_start_in_minutes, time_end_in_minutes]
+    SetTimeIntervalsRequest:
+      type: object
+      properties:
+        intervals:
+          type: array
+          items:
+            $ref: "#/components/schemas/TimeInterval"
+      required: [intervals]
+    TimeInterval:
+      type: object
+      properties:
+        weekDay:
+          type: integer
+          description: "0=Sunday, 1=Monday, ..., 6=Saturday"
+          example: 1
+        startTimeInMinutes:
+          type: integer
+          description: Start time in minutes from midnight
+          example: 480
+        endTimeInMinutes:
+          type: integer
+          description: End time in minutes from midnight
+          example: 1080
+      required: [weekDay, startTimeInMinutes, endTimeInMinutes]
+    AvailabilityResponse:
+      type: object
+      properties:
+        possibleTimes:
+          type: array
+          items:
+            type: integer
+          description: All possible hour slots for the day based on the user's configured interval
+          example: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+        availableTimes:
+          type: array
+          items:
+            type: integer
+          description: "Available hour slots (not blocked by existing bookings or past times)"
+          example: [8, 10, 11, 13, 14, 16, 17]
+      required: [possibleTimes, availableTimes]
+    CreateScheduleRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the person booking
+          example: Jane Smith
+        email:
+          type: string
+          format: email
+          description: Email of the person booking
+          example: jane@example.com
+        observations:
+          type: string
+          description: Additional notes or observations
+          example: "Looking forward to discussing the project roadmap."
+        date:
+          type: string
+          format: date-time
+          description: ISO 8601 datetime for the booking
+          example: "2026-05-10T14:00:00Z"
+      required: [name, email, observations, date]
+    BlockedDatesResponse:
+      type: object
+      properties:
+        blockedWeekDays:
+          type: array
+          items:
+            type: integer
+          description: "Days of the week (0-6) where the user has no configured availability"
+          example: [0, 6]
+        blockedDates:
+          type: array
+          items:
+            type: integer
+          description: Specific day-of-month dates that are fully booked in the requested month
+          example: [5, 12, 19]
+      required: [blockedWeekDays, blockedDates]
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+      required: [message]
