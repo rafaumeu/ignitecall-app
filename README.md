@@ -1,4 +1,4 @@
-     1|<div align="center">
+1|<div align="center">
      2|  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=FFCA28&height=180&section=header&text=Ignite%20Call&fontSize=42&fontColor=fff&animation=fadeIn&fontAlignY=35&desc=Scheduling%20Platform%20with%20Google%20Calendar&descSize=18&descAlignY=52"/>
      3|</div>
      4|
@@ -46,7 +46,7 @@
     44|
     45|## 📸 Screenshots
     46|
-    47|<!-- Add screenshots of: scheduling interface, calendar view, profile page, time interval configuration -->
+    47|
     48|
     49|| Scheduling | Calendar | Profile |
     50||:---:|:---:|:---:|
