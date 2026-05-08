@@ -1,48 +1,38 @@
-name: Security Scan
-
+name: Security
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 0 * * 0"
-
+    - cron: '0 5 * * 1' # Weekly Monday 5am UTC
+permissions:
+  contents: read
+  security-events: write
 jobs:
-  security-scan:
+  codeql:
+    name: CodeQL Analysis
     runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-      contents: read
+    strategy:
+      matrix:
+        language: [javascript-typescript]
     steps:
       - uses: actions/checkout@v4
-
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+      - uses: github/codeql-action/init@v3
         with:
-          languages: javascript, typescript
-
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+          languages: ${{ matrix.language }}
+          queries: security-extended,security-and-quality
+      - uses: github/codeql-action/analyze@v3
         with:
-          node-version: "20"
-          cache: "yarn"
+          category: "/language:${{ matrix.language }}"
 
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Check for vulnerabilities
-        continue-on-error: true
-        run: yarn audit
-
-  dependency-review:
-    if: github.event_name == 'pull_request'
+  secret-scan:
+    name: Secret Detection
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
