@@ -1,3 +1,10 @@
+import { api } from '@/lib/axios'
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+import { Container, Header } from '@/pages/register/style'
+import {
+  FormAnnotation,
+  ProfileBox,
+} from '@/pages/register/update-profile/styles'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Avatar,
@@ -8,20 +15,13 @@ import {
   TextArea,
 } from '@rafaumeu-ignite-ui/react'
 import type { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
 import { getServerSession } from 'next-auth'
 import { useSession } from 'next-auth/react'
 import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
 import { ArrowRight, ChartBar } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { api } from '@/lib/axios'
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
-import { Container, Header } from '@/pages/register/style'
-import {
-  FormAnnotation,
-  ProfileBox,
-} from '@/pages/register/update-profile/styles'
 
 const updateFormSchema = z.object({
   bio: z.string(),

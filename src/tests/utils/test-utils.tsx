@@ -20,4 +20,4 @@ const customRender = (ui: React.ReactElement) => {
 }
 
 export * from '@testing-library/react'
-export { customRender as render } 
+export { customRender as render }
