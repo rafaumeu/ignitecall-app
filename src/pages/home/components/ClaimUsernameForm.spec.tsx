@@ -4,7 +4,9 @@ import { useRouter } from 'next/router'
 import { describe, expect, it, vi } from 'vitest'
 import { ClaimUserNameForm } from './ClaimUsernameForm'
 
-const pushMock = vi.fn().mockImplementation(() => new Promise(resolve => setTimeout(resolve, 500)))
+const pushMock = vi
+  .fn()
+  .mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 500)))
 
 vi.mock('next/router', () => ({
   useRouter: vi.fn().mockReturnValue({
@@ -16,7 +18,9 @@ describe('ClaimUsernameForm', () => {
   it('should render initial state correctly', () => {
     render(<ClaimUserNameForm />)
 
-    expect(screen.getByText('Digite o nome do usuário desejado')).toBeInTheDocument()
+    expect(
+      screen.getByText('Digite o nome do usuário desejado'),
+    ).toBeInTheDocument()
     expect(screen.getByPlaceholderText('seu-usuário')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /reservar/i })).toBeEnabled()
   })
@@ -29,11 +33,11 @@ describe('ClaimUsernameForm', () => {
 
     await userEvent.type(input, 'johndoe')
     const submitPromise = userEvent.click(button)
-    
+
     await waitFor(() => {
       expect(button).toBeDisabled()
     })
-    
+
     await submitPromise
   })
 
@@ -90,4 +94,4 @@ describe('ClaimUsernameForm', () => {
 
     expect(router.push).toHaveBeenCalledWith('/register?username=johndoe')
   })
-}) 
+})

@@ -31,6 +31,6 @@
     }
   },
   "files": {
-    "includes": ["src/**"]
+    "include": ["src/**"]
   }
 }

@@ -1,14 +1,14 @@
-import { Button, Heading, Text } from '@rafaumeu-ignite-ui/react'
-import { useQuery } from '@tanstack/react-query'
-import type { GetServerSideProps } from 'next'
-import { useRouter } from 'next/router'
-import { getServerSession } from 'next-auth'
-import { useSession } from 'next-auth/react'
-import { NextSeo } from 'next-seo'
-import { ArrowLeft, ChartBar } from 'phosphor-react'
 import { api } from '@/lib/axios'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 import type { MetricsResponse } from '@/pages/api/users/metrics.api'
+import { Button, Heading, Text } from '@rafaumeu-ignite-ui/react'
+import { useQuery } from '@tanstack/react-query'
+import type { GetServerSideProps } from 'next'
+import { getServerSession } from 'next-auth'
+import { useSession } from 'next-auth/react'
+import { NextSeo } from 'next-seo'
+import { useRouter } from 'next/router'
+import { ArrowLeft, ChartBar } from 'phosphor-react'
 import {
   Bar,
   BarGroup,
@@ -23,8 +23,8 @@ import {
   Navigation,
   StatCard,
   StatLabel,
-  StatsGrid,
   StatValue,
+  StatsGrid,
 } from './styles'
 
 export default function Dashboard() {

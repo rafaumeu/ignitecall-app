@@ -1,4 +1,4 @@
-import { Box, Heading, styled, Text } from '@rafaumeu-ignite-ui/react'
+import { Box, Heading, Text, styled } from '@rafaumeu-ignite-ui/react'
 
 export const Container = styled('main', {
   maxWidth: 852,

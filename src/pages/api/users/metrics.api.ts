@@ -1,7 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getServerSession } from 'next-auth'
 import { prisma } from '@/lib/prisma'
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { getServerSession } from 'next-auth'
 
 export interface MetricsResponse {
   totalBookings: number

@@ -5,221 +5,232 @@
  * Scheduling and availability API for Ignite Call — a Next.js Pages Router application with Google Calendar integration.
  * OpenAPI spec version: 1.0.0
  */
-import { customInstance } from './axios-instance';
+import { customInstance } from './axios-instance'
 export interface User {
   /** UUID */
-  id: string;
-  username: string;
-  name: string;
+  id: string
+  username: string
+  name: string
   /** @nullable */
-  bio?: string | null;
+  bio?: string | null
   /** @nullable */
-  email?: string | null;
+  email?: string | null
   /** @nullable */
-  avatar_url?: string | null;
-  created_at: string;
+  avatar_url?: string | null
+  created_at: string
 }
 
 export interface CreateUserRequest {
-  name: string;
-  username: string;
+  name: string
+  username: string
 }
 
 export interface UpdateProfileRequest {
-  bio: string;
+  bio: string
 }
 
 export interface DayOfWeekCount {
   /** 0=Sunday, 1=Monday, ..., 6=Saturday */
-  day: number;
-  dayLabel: string;
-  count: number;
+  day: number
+  dayLabel: string
+  count: number
 }
 
 export interface HourCount {
   /** Hour of day (0-23) */
-  hour: number;
-  count: number;
+  hour: number
+  count: number
 }
 
 export interface MetricsResponse {
-  totalBookings: number;
-  bookingsByDayOfWeek: DayOfWeekCount[];
-  bookingsByHour: HourCount[];
-  busiestDay: DayOfWeekCount | null;
-  busiestHour: HourCount | null;
+  totalBookings: number
+  bookingsByDayOfWeek: DayOfWeekCount[]
+  bookingsByHour: HourCount[]
+  busiestDay: DayOfWeekCount | null
+  busiestHour: HourCount | null
 }
 
 export interface TimeInterval {
   /** 0=Sunday, 1=Monday, ..., 6=Saturday */
-  weekDay: number;
+  weekDay: number
   /** Start time in minutes from midnight */
-  startTimeInMinutes: number;
+  startTimeInMinutes: number
   /** End time in minutes from midnight */
-  endTimeInMinutes: number;
+  endTimeInMinutes: number
 }
 
 export interface SetTimeIntervalsRequest {
-  intervals: TimeInterval[];
+  intervals: TimeInterval[]
 }
 
 export interface AvailabilityResponse {
   /** All possible hour slots for the day based on the user's configured interval */
-  possibleTimes: number[];
+  possibleTimes: number[]
   /** Available hour slots (not blocked by existing bookings or past times) */
-  availableTimes: number[];
+  availableTimes: number[]
 }
 
 export interface CreateScheduleRequest {
   /** Name of the person booking */
-  name: string;
+  name: string
   /** Email of the person booking */
-  email: string;
+  email: string
   /** Additional notes or observations */
-  observations: string;
+  observations: string
   /** ISO 8601 datetime for the booking */
-  date: string;
+  date: string
 }
 
 export interface BlockedDatesResponse {
   /** Days of the week (0-6) where the user has no configured availability */
-  blockedWeekDays: number[];
+  blockedWeekDays: number[]
   /** Specific day-of-month dates that are fully booked in the requested month */
-  blockedDates: number[];
+  blockedDates: number[]
 }
 
 export interface ErrorResponse {
-  message: string;
+  message: string
 }
 
 export type GetAvailabilityParams = {
-/**
- * The reference date (YYYY-MM-DD format)
- */
-date: string;
-};
+  /**
+   * The reference date (YYYY-MM-DD format)
+   */
+  date: string
+}
 
 export type GetBlockedDatesParams = {
-/**
- * The year
- */
-year: number;
-/**
- * The month (1-12)
- */
-month: number;
-};
+  /**
+   * The year
+   */
+  year: number
+  /**
+   * The month (1-12)
+   */
+  month: number
+}
 
 export const getIgniteCallAPI = () => {
-/**
- * Creates a new user with the given name and username. Sets a cookie with the user ID.
- * @summary Register a new user
- */
-const createUser = (
-    createUserRequest: CreateUserRequest,
- ) => {
-      return customInstance<User>(
-      {url: `/api/users`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createUserRequest
-    },
-      );
-    }
+  /**
+   * Creates a new user with the given name and username. Sets a cookie with the user ID.
+   * @summary Register a new user
+   */
+  const createUser = (createUserRequest: CreateUserRequest) => {
+    return customInstance<User>({
+      url: '/api/users',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createUserRequest,
+    })
+  }
 
-/**
- * Updates the authenticated user's bio. Requires an active next-auth session.
- * @summary Update user profile bio
- */
-const updateProfile = (
-    updateProfileRequest: UpdateProfileRequest,
- ) => {
-      return customInstance<void>(
-      {url: `/api/users/profile`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updateProfileRequest
-    },
-      );
-    }
+  /**
+   * Updates the authenticated user's bio. Requires an active next-auth session.
+   * @summary Update user profile bio
+   */
+  const updateProfile = (updateProfileRequest: UpdateProfileRequest) => {
+    return customInstance<void>({
+      url: '/api/users/profile',
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateProfileRequest,
+    })
+  }
 
-/**
- * Returns scheduling metrics for the authenticated user including total bookings, breakdowns by day of week and hour, and busiest times.
- * @summary Get booking metrics
- */
-const getMetrics = (
+  /**
+   * Returns scheduling metrics for the authenticated user including total bookings, breakdowns by day of week and hour, and busiest times.
+   * @summary Get booking metrics
+   */
+  const getMetrics = () => {
+    return customInstance<MetricsResponse>({
+      url: '/api/users/metrics',
+      method: 'GET',
+    })
+  }
 
- ) => {
-      return customInstance<MetricsResponse>(
-      {url: `/api/users/metrics`, method: 'GET'
-    },
-      );
-    }
-
-/**
- * Creates time intervals for the authenticated user's weekly availability. Each interval specifies a week day, start time, and end time in minutes from midnight.
- * @summary Set available time intervals
- */
-const setTimeIntervals = (
+  /**
+   * Creates time intervals for the authenticated user's weekly availability. Each interval specifies a week day, start time, and end time in minutes from midnight.
+   * @summary Set available time intervals
+   */
+  const setTimeIntervals = (
     setTimeIntervalsRequest: SetTimeIntervalsRequest,
- ) => {
-      return customInstance<void>(
-      {url: `/api/users/time-intervals`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: setTimeIntervalsRequest
-    },
-      );
-    }
+  ) => {
+    return customInstance<void>({
+      url: '/api/users/time-intervals',
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: setTimeIntervalsRequest,
+    })
+  }
 
-/**
- * Returns the possible and available time slots for a given user on a specific date. A date query parameter is required.
- * @summary Get available time slots for a date
- */
-const getAvailability = (
-    username: string,
-    params: GetAvailabilityParams,
- ) => {
-      return customInstance<AvailabilityResponse>(
-      {url: `/api/users/${username}/availability`, method: 'GET',
-        params
-    },
-      );
-    }
+  /**
+   * Returns the possible and available time slots for a given user on a specific date. A date query parameter is required.
+   * @summary Get available time slots for a date
+   */
+  const getAvailability = (username: string, params: GetAvailabilityParams) => {
+    return customInstance<AvailabilityResponse>({
+      url: `/api/users/${username}/availability`,
+      method: 'GET',
+      params,
+    })
+  }
 
-/**
- * Books a scheduling slot for a user. Validates the date, checks for conflicts, creates the booking in the database, and adds a Google Calendar event with a Meet link.
- * @summary Create a scheduling booking
- */
-const createSchedule = (
+  /**
+   * Books a scheduling slot for a user. Validates the date, checks for conflicts, creates the booking in the database, and adds a Google Calendar event with a Meet link.
+   * @summary Create a scheduling booking
+   */
+  const createSchedule = (
     username: string,
     createScheduleRequest: CreateScheduleRequest,
- ) => {
-      return customInstance<void>(
-      {url: `/api/users/${username}/schedule`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createScheduleRequest
-    },
-      );
-    }
+  ) => {
+    return customInstance<void>({
+      url: `/api/users/${username}/schedule`,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      data: createScheduleRequest,
+    })
+  }
 
-/**
- * Returns the days of the week that are blocked (no availability) and specific dates that are fully booked for the given month.
- * @summary Get blocked dates for a month
- */
-const getBlockedDates = (
-    username: string,
-    params: GetBlockedDatesParams,
- ) => {
-      return customInstance<BlockedDatesResponse>(
-      {url: `/api/users/${username}/blocked-dates`, method: 'GET',
-        params
-    },
-      );
-    }
+  /**
+   * Returns the days of the week that are blocked (no availability) and specific dates that are fully booked for the given month.
+   * @summary Get blocked dates for a month
+   */
+  const getBlockedDates = (username: string, params: GetBlockedDatesParams) => {
+    return customInstance<BlockedDatesResponse>({
+      url: `/api/users/${username}/blocked-dates`,
+      method: 'GET',
+      params,
+    })
+  }
 
-return {createUser,updateProfile,getMetrics,setTimeIntervals,getAvailability,createSchedule,getBlockedDates}};
-export type CreateUserResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['createUser']>>>
-export type UpdateProfileResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['updateProfile']>>>
-export type GetMetricsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getMetrics']>>>
-export type SetTimeIntervalsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['setTimeIntervals']>>>
-export type GetAvailabilityResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getAvailability']>>>
-export type CreateScheduleResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['createSchedule']>>>
-export type GetBlockedDatesResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getBlockedDates']>>>
+  return {
+    createUser,
+    updateProfile,
+    getMetrics,
+    setTimeIntervals,
+    getAvailability,
+    createSchedule,
+    getBlockedDates,
+  }
+}
+export type CreateUserResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['createUser']>>
+>
+export type UpdateProfileResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['updateProfile']>>
+>
+export type GetMetricsResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getMetrics']>>
+>
+export type SetTimeIntervalsResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['setTimeIntervals']>>
+>
+export type GetAvailabilityResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getAvailability']>>
+>
+export type CreateScheduleResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['createSchedule']>>
+>
+export type GetBlockedDatesResult = NonNullable<
+  Awaited<ReturnType<ReturnType<typeof getIgniteCallAPI>['getBlockedDates']>>
+>
