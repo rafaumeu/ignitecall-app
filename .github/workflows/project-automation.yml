@@ -21,7 +21,7 @@ jobs:
 
       - name: Move Issue
         if: github.event_name == 'issues'
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
